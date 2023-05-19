@@ -1,0 +1,20 @@
+{
+  "name": "sd-026-a-project-recipes-app-full-stack",
+  "version": "1.0.0",
+  "description": "Para realizar o projeto, atente-se a cada passo descrito a seguir, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tryber/sd-026-a-project-recipes-app-full-stack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tryber/sd-026-a-project-recipes-app-full-stack/issues"
+  },
+  "homepage": "https://github.com/tryber/sd-026-a-project-recipes-app-full-stack#readme"
+}
