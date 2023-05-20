@@ -1,8 +1,7 @@
 import { compare, genSalt, hash } from 'bcryptjs';
 import HttpException from '../utils/http.exception';
 import { createToken } from '../utils/auth';
-import UserModel from '../database/models/User.model';
-import { Register } from '../dtos/user/register.dto';
+import UserModel, { UserCreateAttr } from '../database/models/User.model';
 
 export type Login = {
   email: string;
@@ -28,7 +27,7 @@ export default class UserService {
     };
   }
 
-  public static async register({ email, password, username }: Register) {
+  public static async register({ email, password, username }: UserCreateAttr) {
     const salt = await genSalt(+SALT);
     const passwordHash = await hash(password, salt);
     const user = new UserModel({ email, password: passwordHash, username });
