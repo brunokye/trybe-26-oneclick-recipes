@@ -1,4 +1,4 @@
-import { Login } from '../dtos/login.dto';
+import { Login } from '../dtos/user/login.dto';
 import HttpException from '../utils/http.exception';
 
 const validate = ({ password, email }: Login): void => {
