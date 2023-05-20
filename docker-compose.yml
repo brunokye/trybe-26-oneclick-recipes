@@ -23,6 +23,21 @@ services:
       test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
       timeout: 10s
       retries: 5
+
+  frontend:
+    container_name: app_frontend
+    build: ./frontend
+    depends_on:
+      backend:
+    ports:
+      - 3000:3000
+    command: start
+    working_dir: /app-frontend
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
+      timeout: 10s
+      retries: 5
+
   db:
     image: mysql:8.0.32
     container_name: db
