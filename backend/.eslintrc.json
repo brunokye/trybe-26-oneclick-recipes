@@ -17,6 +17,8 @@
       "indent": ["error", 2],
       "linebreak-style": ["error", "unix"],
       "quotes": ["error", "single"],
-      "semi": ["error", "always"]
+      "semi": ["error", "always"],
+      "import/no-unresolved": "off",
+      "import/extensions": "off"
     }
   }
