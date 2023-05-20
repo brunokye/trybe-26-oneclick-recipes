@@ -32,5 +32,9 @@ export default class UserService {
     const passwordHash = await hash(password, salt);
     const user = new UserModel({ email, password: passwordHash, username });
     user.save();
+    return {
+      token: createToken(user.id),
+      username: user.username,
+    };
   }
 }
