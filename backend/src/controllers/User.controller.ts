@@ -3,8 +3,8 @@ import UserService from '../services/User.service';
 
 export default class UserController {
   public static async login(req: Request, res: Response) {
-    const token = await UserService.login(req.body);
+    const data = await UserService.login(req.body);
 
-    res.status(200).json({ token });
+    res.status(200).json(data);
   }
 }
