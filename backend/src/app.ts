@@ -1,4 +1,6 @@
-import * as express from 'express';
+import express from 'express';
+import userRouter from './routes/user.routes';
+import errorHandler from './middlewares/errorHandler';
 
 class App {
   public app: express.Express;
@@ -22,9 +24,16 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+
+    // routes
+    this.app.use('/users', userRouter);
+
+    // errorhandler
+    this.app.use(errorHandler);
   }
 
   public start(PORT: string | number):void {
+    // eslint-disable-next-line no-console
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
 }
