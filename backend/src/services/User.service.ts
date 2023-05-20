@@ -1,5 +1,4 @@
-/* eslint-disable import/extensions */
-import { compareSync } from 'bcryptjs';
+import { compare } from 'bcryptjs';
 import HttpException from '../utils/http.exception';
 import { createToken } from '../utils/auth';
 import UserModel from '../database/models/User.model';
@@ -16,7 +15,7 @@ export default class UserService {
     if (!user) {
       throw new HttpException(401, 'Invalid email or password');
     }
-    const checkPassword = compareSync(password, user.password);
+    const checkPassword = await compare(password, user.password);
     if (!checkPassword) {
       throw new HttpException(401, 'Invalid email or password');
     }
