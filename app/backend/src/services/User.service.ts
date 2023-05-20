@@ -1,6 +1,6 @@
-import {compare, genSalt, hash} from 'bcryptjs';
+import { compare, genSalt, hash } from 'bcryptjs';
 import HttpException from '../utils/http.exception';
-import {createToken} from '../utils/auth';
+import { createToken } from '../utils/auth';
 import UserModel from '../database/models/User.model';
 import { Register } from '../dtos/user/register.dto';
 
@@ -12,8 +12,8 @@ export type Login = {
 const SALT = process.env.SALT || 10;
 
 export default class UserService {
-  public static async login({email, password}: Login) {
-    const user = await UserModel.findOne({where: {email}});
+  public static async login({ email, password }: Login) {
+    const user = await UserModel.findOne({ where: { email } });
 
     if (!user) {
       throw new HttpException(401, 'Invalid email or password');
@@ -28,10 +28,10 @@ export default class UserService {
     };
   }
 
-  public static async register({email, password, username}: Register) {
+  public static async register({ email, password, username }: Register) {
     const salt = await genSalt(+SALT);
     const passwordHash = await hash(password, salt);
-    const user = new UserModel({email, password: passwordHash, username});
+    const user = new UserModel({ email, password: passwordHash, username });
     user.save();
   }
 }
