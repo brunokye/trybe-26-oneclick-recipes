@@ -1,4 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
+// eslint-disable-next-line import/no-unresolved
 import sequelize from '.';
 
 export interface UserAttributes {
@@ -12,8 +13,11 @@ export type UserCreateAttr = Omit<UserAttributes, 'id'>;
 
 class UserModel extends Model<UserAttributes, UserCreateAttr> {
   declare id: number;
+
   declare username: string;
+
   declare email: string;
+
   declare password: string;
 }
 
