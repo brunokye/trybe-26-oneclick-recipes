@@ -8,7 +8,13 @@ export const isValidPassword = (password) => {
   return passwordRegex.test(password);
 };
 
+export const isValidUsername = (password) => {
+  const passwordRegex = /^.{2,}$/g;
+  return passwordRegex.test(password);
+};
+
 export default {
   isValidEmail,
   isValidPassword,
+  isValidUsername,
 };

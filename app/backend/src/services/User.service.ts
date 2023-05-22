@@ -23,7 +23,7 @@ export default class UserService {
     }
     return {
       token: createToken(user.id),
-      username: user.username,
+      email: user.email,
     };
   }
 
@@ -37,7 +37,7 @@ export default class UserService {
       .create({ email, password: passwordHash, username });
     return {
       token: createToken(user.id),
-      username: user.username,
+      email: user.email,
     };
   }
 
