@@ -3,27 +3,24 @@ import MealController from '../controllers/Meal.controller';
 
 const mealsRouter = Router();
 
-// query q=nomes
-mealsRouter.get('/name', MealController.findByName);
+const { findByName, findByFirstLetter, findRandom,
+  findAllCategories, findAllAreas, findAllIngredients,
+  findByIngredient, findByCategory, findByArea } = MealController;
 
-// query q=primeira-letra
-mealsRouter.get('/letter', MealController.findByFirstLetter);
-
-mealsRouter.get('/random', MealController.findRandom);
-
-mealsRouter.get('/categories', MealController.findAllCategories);
-
-mealsRouter.get('/areas', MealController.findAllAreas);
-
-mealsRouter.get('/ingredients', MealController.findAllIngredients);
-
-// query q=ingredient-name
-mealsRouter.get('/ingredient', MealController.findByIngredient);
-
-// query q=category-name
-mealsRouter.get('/category', MealController.findByCategory);
-
-// query q=area-name
-mealsRouter.get('/area', MealController.findByArea);
+mealsRouter
+  // query q=nomes
+  .get('/name', findByName)
+  // query q=primeira-letra
+  .get('/letter', findByFirstLetter)
+  .get('/random', findRandom)
+  .get('/categories', findAllCategories)
+  .get('/areas', findAllAreas)
+  .get('/ingredients', findAllIngredients)
+  // query q=ingredient-name
+  .get('/ingredient', findByIngredient)
+  // query q=category-name
+  .get('/category', findByCategory)
+  // query q=area-name
+  .get('/area', findByArea);
 
 export default mealsRouter;

@@ -1,23 +1,23 @@
 import { Router } from 'express';
+import DrinkController from '../controllers/Drink.controller';
 
 const drinksRouter = Router();
 
-// query q=nomes
-drinksRouter.get('/name', () => {});
+const { findByName, findByFirstLetter, findRandom,
+  findAllCategories, findAllIngredients,
+  findByIngredient, findByCategory } = DrinkController;
 
-// query q=primeira-letra
-drinksRouter.get('/letter', () => {});
-
-drinksRouter.get('/random', () => {});
-
-drinksRouter.get('/categories', () => {});
-
-drinksRouter.get('/ingredients', () => {});
-
-// query q=ingredient-name
-drinksRouter.get('/ingredient', () => {});
-
-// query q=category-name
-drinksRouter.get('/category', () => {});
+drinksRouter
+  // query q=nomes
+  .get('/name', findByName)
+  // query q=primeira-letra
+  .get('/letter', findByFirstLetter)
+  .get('/random', findRandom)
+  .get('/categories', findAllCategories)
+  .get('/ingredients', findAllIngredients)
+  // query q=ingredient-name
+  .get('/ingredient', findByIngredient)
+  // query q=category-name
+  .get('/category', findByCategory);
 
 export default drinksRouter;
