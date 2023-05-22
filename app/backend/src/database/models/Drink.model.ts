@@ -39,7 +39,6 @@ class DrinkModel extends Model {
   declare strMeasure13: string;
   declare strMeasure14: string;
   declare strMeasure15: string;
-  declare strCreativeCommonsConfirmed: string;
   declare dateModified: string;
 }
 
@@ -87,7 +86,6 @@ DrinkModel.init(
     strMeasure13: { type: DataTypes.STRING },
     strMeasure14: { type: DataTypes.STRING },
     strMeasure15: { type: DataTypes.STRING },
-    strCreativeCommonsConfirmed: { type: DataTypes.STRING },
     dateModified: { type: DataTypes.STRING },
   },
   {

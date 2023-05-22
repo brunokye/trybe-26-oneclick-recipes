@@ -45,7 +45,6 @@ module.exports = {
       strMeasure13: { type: Sequelize.STRING },
       strMeasure14: { type: Sequelize.STRING },
       strMeasure15: { type: Sequelize.STRING },
-      strCreativeCommonsConfirmed: { type: Sequelize.STRING },
       dateModified: { type: Sequelize.STRING },
     });
   },
