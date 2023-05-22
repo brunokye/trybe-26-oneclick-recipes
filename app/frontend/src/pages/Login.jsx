@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isValidEmail, isValidPassword } from '../helpers';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { isValidEmail, isValidPassword, readObject } from '../helpers';
 // import { saveUser } from '../services/userLS';
 import { requestLogin } from '../helpers/fetch';
 import '../styles/login.css';
@@ -13,6 +14,12 @@ export default function Login() {
   const [fetchMessage, setFetchMessage] = useState('test');
 
   const history = useHistory();
+
+  useEffect(() => {
+    if (readObject('token', null)) {
+      history.push('/meals');
+    }
+  }, [history]);
 
   const doLogin = async () => {
     const data = await requestLogin('/users/login', { email, password });
@@ -65,6 +72,11 @@ export default function Login() {
         >
           Login
         </button>
+        <h6>
+          Não tem cadastro?
+          <Link to="cadastro">{' clique aqui!'}</Link>
+        </h6>
+
       </div>
     </div>
   );

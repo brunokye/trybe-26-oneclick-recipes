@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isValidEmail, isValidPassword, isValidUsername } from '../helpers';
-// import { saveUser } from '../services/userLS';
+import { isValidEmail, isValidPassword, isValidUsername, readObject } from '../helpers';
 import { requestLogin } from '../helpers/fetch';
 import '../styles/login.css';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Registro() {
   const [email, setEmail] = useState('');
@@ -14,6 +14,12 @@ export default function Registro() {
   const [fetchMessage, setFetchMessage] = useState('test');
 
   const history = useHistory();
+
+  useEffect(() => {
+    if (readObject('token', null)) {
+      history.push('/meals');
+    }
+  }, [history]);
 
   const doLogin = async () => {
     const data = await requestLogin('/users/register', {
@@ -42,7 +48,7 @@ export default function Registro() {
       <h1>{fetchError && fetchMessage}</h1>
       <h4 className="titleLogin">oneClick Recipes</h4>
       <div className="loginContainer">
-        <h6>Login</h6>
+        <h6>Cadastro</h6>
         <label htmlFor="username">
           <input
             placeholder="Nome"
@@ -78,8 +84,12 @@ export default function Registro() {
           onClick={ doLogin }
           disabled={ disabled }
         >
-          Login
+          Registrar
         </button>
+        <h6>
+          Já é cadastrado?
+          <Link to="login">{' clique aqui!'}</Link>
+        </h6>
       </div>
     </div>
   );
