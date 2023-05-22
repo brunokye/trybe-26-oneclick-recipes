@@ -1,4 +1,5 @@
 nyc.config.js
+.eslintrc.js
 node_modules/
 tests/
 build/

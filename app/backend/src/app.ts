@@ -1,8 +1,9 @@
 import * as express from 'express';
-import userRouter from './routes/user.routes';
 import mealsRouter from './routes/meals.routes';
 import drinksRouter from './routes/drinks.routes';
+import 'express-async-errors';
 import errorHandler from './middlewares/errorHandler';
+import userRouter from './routes/user.routes';
 
 class App {
   public app: express.Express;
@@ -12,7 +13,6 @@ class App {
 
     this.config();
 
-    // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.use('/meals', mealsRouter);
     this.app.use('/drinks', drinksRouter);
