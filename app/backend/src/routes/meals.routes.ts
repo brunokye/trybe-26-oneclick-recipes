@@ -8,7 +8,6 @@ const { findById, findByName, findByFirstLetter, findRandom,
   findByIngredient, findByCategory, findByArea } = MealController;
 
 mealsRouter
-  .get('/:id', findById)
   // query q=nomes
   .get('/name', findByName)
   // query q=primeira-letra
@@ -22,6 +21,7 @@ mealsRouter
   // query q=category-name
   .get('/category', findByCategory)
   // query q=area-name
-  .get('/area', findByArea);
+  .get('/area', findByArea)
+  .get('/:id', findById);
 
 export default mealsRouter;

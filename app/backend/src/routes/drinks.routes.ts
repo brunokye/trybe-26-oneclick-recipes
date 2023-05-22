@@ -8,7 +8,6 @@ const { findById, findByName, findByFirstLetter,
   findByIngredient, findByCategory } = DrinkController;
 
 drinksRouter
-  .get('/:id', findById)
   // query q=nomes
   .get('/name', findByName)
   // query q=primeira-letra
@@ -19,6 +18,7 @@ drinksRouter
   // query q=ingredient-name
   .get('/ingredient', findByIngredient)
   // query q=category-name
-  .get('/category', findByCategory);
+  .get('/category', findByCategory)
+  .get('/:id', findById);
 
 export default drinksRouter;
