@@ -4,6 +4,13 @@ import DrinkIngredientService from '../services/DrinkIngredient.service';
 import DrinkCategoryService from '../services/DrinkCategory.service';
 
 export default class DrinkController {
+  public static async findById(req: Request, res: Response) {
+    const { id } = req.params;
+    const drink = await DrinkService.findById(id);
+
+    res.status(200).json(drink);
+  }
+
   public static async findByName(req: Request, res: Response) {
     const { q = '' } = req.query;
     const drinks = await DrinkService.findByName(q as string);

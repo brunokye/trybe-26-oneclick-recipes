@@ -3,11 +3,12 @@ import DrinkController from '../controllers/Drink.controller';
 
 const drinksRouter = Router();
 
-const { findByName, findByFirstLetter, findRandom,
-  findAllCategories, findAllIngredients,
+const { findById, findByName, findByFirstLetter,
+  findRandom, findAllCategories, findAllIngredients,
   findByIngredient, findByCategory } = DrinkController;
 
 drinksRouter
+  .get('/:id', findById)
   // query q=nomes
   .get('/name', findByName)
   // query q=primeira-letra

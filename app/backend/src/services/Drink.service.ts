@@ -2,6 +2,12 @@ import { Op, Sequelize } from 'sequelize';
 import DrinkModel from '../database/models/Drink.model';
 
 export default class DrinkService {
+  public static async findById(id: string) {
+    return DrinkModel.findOne({
+      where: { idDrink: id },
+    });
+  }
+
   public static async findByName(name: string) {
     return DrinkModel.findAll({
       where: {
