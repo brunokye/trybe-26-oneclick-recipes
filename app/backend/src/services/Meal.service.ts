@@ -24,12 +24,53 @@ export default class MealService {
     return meals;
   }
 
-  public static async findCategories() {
-    const categories = await MealModel.findAll({
-      attributes: [
-        [Sequelize.fn('DISTINCT', Sequelize.col('strCategory')), 'strCategory'],
-      ],
+  public static async findByCategory(category: string) {
+    const meals = await MealModel.findAll({
+      where: {
+        strCategory: category,
+      },
     });
-    return categories;
+
+    return meals;
+  }
+
+  public static async findByArea(area: string) {
+    const meals = await MealModel.findAll({
+      where: {
+        strArea: area,
+      },
+      attributes: ['strMeal', 'strMealThumb', 'idMeal'],
+    });
+
+    return meals;
+  }
+
+  public static async findRandom() {
+    const meals = await MealModel.findAll({
+      order: Sequelize.literal('RAND()'),
+      limit: 1,
+    });
+
+    return meals;
+  }
+
+  public static async findAllAreas() {
+    const areas = await MealModel.findAll({
+      attributes: [
+        [Sequelize.fn('DISTINCT', Sequelize.col('strArea')), 'strArea'],
+      ],
+      order: [['strArea', 'ASC']],
+    });
+    return areas;
+  }
+
+  public static async findByIngredient(ingredient: string) {
+    const meals = await MealModel.findAll({
+      where: {
+        strIngredient1: ingredient,
+      },
+    });
+
+    return meals;
   }
 }
