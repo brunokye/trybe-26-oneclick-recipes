@@ -1,21 +1,34 @@
+import axios from 'axios';
 import { readObject, saveObject } from './localStorage';
+import { saveUser } from '../services/userLS';
 
-export default async function custmonFetch(url, data) {
-  const baseUrl = process.env.BASE_URL || 'http://localhost:3001/';
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3001',
+});
 
-  const option = data ? {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: JSON.stringify(readObject('user', '')),
-    },
-    body: JSON.stringify(data),
-  } : null;
+export const setToken = () => {
+  const token = readObject('token', '');
+  api.defaults.headers.common.Authorization = token;
+};
 
-  const result = await fetch(baseUrl + url, option);
-  const response = result.json();
-  if (response.token) {
-    saveObject('token', response.token);
-    saveObject('user', response.email);
+export const requestData = async (endpoint) => {
+  const { data } = await api.get(endpoint);
+  return data;
+};
+
+export const requestLogin = async (endpoint, body) => {
+  setToken();
+  try {
+    const { data } = await api.post(endpoint, body);
+    console.log(data.email);
+    if (data.token) {
+      saveObject('token', data.token);
+      saveUser(data.email);
+    }
+    return data;
+  } catch (e) {
+    return e.response.data.erro;
   }
-}
+};
+
+export default api;
