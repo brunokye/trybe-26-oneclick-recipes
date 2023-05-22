@@ -1,4 +1,5 @@
 import { parseJSONResponse } from '../helpers';
+import { requestData } from '../helpers/fetch';
 
 const baseUrl = 'https://www.themealdb.com/api/json/v1/1/';
 
@@ -8,7 +9,14 @@ const messages = {
 };
 
 export const fetchByIngredient = async (searchInput) => {
-  const response = await fetch(`${baseUrl}filter.php?i=${searchInput}`);
+  let response;
+  if (searchInput) {
+    const { data } = await requestData(`meals/ingredient?q=${searchInput}`);
+    response = data;
+  } else {
+    const { data } = await requestData('meals/ingredients');
+    response = data;
+  }
 
   const { meals } = await parseJSONResponse(response, []);
   if (!meals || meals.length === 0) {
@@ -71,8 +79,7 @@ export const fetchByType = async (searchType, searchInput) => {
 };
 
 export const fetchMeals = async () => {
-  const response = await fetch(`${baseUrl}search.php?s=`);
-  const { meals } = await response.json();
+  const { meals } = await requestData('/meals/name');
   return meals;
 };
 
