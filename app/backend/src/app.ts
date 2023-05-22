@@ -1,5 +1,7 @@
 import * as express from 'express';
 import userRouter from './routes/user.routes';
+import mealsRouter from './routes/meals.routes';
+import drinksRouter from './routes/drinks.routes';
 import errorHandler from './middlewares/errorHandler';
 
 class App {
@@ -12,6 +14,8 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.use('/meals', mealsRouter);
+    this.app.use('/drinks', drinksRouter);
   }
 
   private config():void {
