@@ -18,7 +18,6 @@ export const fetchByIngredient = async (searchInput) => {
     response = meals;
   }
 
-  console.log(response);
   // const { meals } = await parseJSONResponse(response, []);
   if (!response || response.length === 0) {
     global.alert(messages.notFound);
