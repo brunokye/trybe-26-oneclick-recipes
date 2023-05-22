@@ -103,13 +103,15 @@ export const fetchDrinks = async () => {
 };
 
 export const fetchDrinksCategories = async () => {
-  const response = await fetch(`${baseUrl}list.php?c=list`);
-  const { drinks } = await response.json();
+  // const response = await fetch(`${baseUrl}list.php?c=list`);
+  // const { drinks } = await response.json();
+  const { drinks } = await requestData('/drinks/categories');
   return drinks;
 };
 
 export const fetchDrinksByCategory = async (category) => {
-  const response = await fetch(`${baseUrl}filter.php?c=${category}`);
-  const { drinks } = await response.json();
+  // const response = await fetch(`${baseUrl}filter.php?c=${category}`);
+  // const { drinks } = await response.json();
+  const { drinks } = await requestData(`/drinks/category?q=${category}`);
   return drinks;
 };
