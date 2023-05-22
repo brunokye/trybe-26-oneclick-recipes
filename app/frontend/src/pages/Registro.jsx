@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useHistory } from 'react-router-dom';
 import { isValidEmail, isValidPassword, isValidUsername, readObject } from '../helpers';
 import { requestLogin } from '../helpers/fetch';
 import '../styles/login.css';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Registro() {
   const [email, setEmail] = useState('');
