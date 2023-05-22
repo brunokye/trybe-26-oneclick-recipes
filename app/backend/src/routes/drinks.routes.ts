@@ -4,7 +4,8 @@ import DrinkController from '../controllers/Drink.controller';
 const drinksRouter = Router();
 
 const { findByName, findByFirstLetter, findRandom,
-  findAllCategories, findByIngredient, findByCategory } = DrinkController;
+  findAllCategories, findAllIngredients,
+  findByIngredient, findByCategory } = DrinkController;
 
 drinksRouter
   // query q=nomes
@@ -13,6 +14,7 @@ drinksRouter
   .get('/letter', findByFirstLetter)
   .get('/random', findRandom)
   .get('/categories', findAllCategories)
+  .get('/ingredients', findAllIngredients)
   // query q=ingredient-name
   .get('/ingredient', findByIngredient)
   // query q=category-name
