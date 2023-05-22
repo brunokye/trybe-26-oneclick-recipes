@@ -1,7 +1,7 @@
 import { compare, genSalt, hash } from 'bcryptjs';
 import HttpException from '../utils/http.exception';
 import { createToken } from '../utils/auth';
-import UserModel, { UserCreateAttr } from '../database/models/User.model';
+import UserModel, { UserAttributes, UserCreateAttr } from '../database/models/User.model';
 
 export type Login = {
   email: string;
@@ -28,13 +28,20 @@ export default class UserService {
   }
 
   public static async register({ email, password, username }: UserCreateAttr) {
+    if (await this.getUserByemail(email)) {
+      throw new HttpException(400, 'Email already registered');
+    }
     const salt = await genSalt(+SALT);
     const passwordHash = await hash(password, salt);
-    const user = new UserModel({ email, password: passwordHash, username });
-    user.save();
+    const user: UserAttributes = await UserModel
+      .create({ email, password: passwordHash, username });
     return {
       token: createToken(user.id),
       username: user.username,
     };
+  }
+
+  static async getUserByemail(email: string): Promise<UserAttributes | null> {
+    return UserModel.findOne({ where: { email } });
   }
 }
