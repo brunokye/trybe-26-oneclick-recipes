@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import DrinkService from '../services/Drink.service';
+import DrinkIngredientService from '../services/DrinkIngredient.service';
 import DrinkCategoryService from '../services/DrinkCategory.service';
 
 export default class DrinkController {
@@ -41,5 +42,11 @@ export default class DrinkController {
     const categories = await DrinkCategoryService.findAll();
 
     res.status(200).json({ drinks: categories });
+  }
+
+  public static async findAllIngredients(req: Request, res: Response) {
+    const ingredients = await DrinkIngredientService.findAll();
+
+    res.status(200).json({ drinks: ingredients });
   }
 }
