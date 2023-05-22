@@ -10,7 +10,7 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import './styles/app.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
-import Regiter from './pages/Registro';
+import Register from './pages/Registro';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Home } />
         <Route exact path="/login" component={ Login } />
-        <Route exact path="/cadastro" component={ Regiter } />
+        <Route exact path="/register" component={ Register } />
         <Route exact path="/meals" component={ Recipes } />
         <Route exact path="/drinks" component={ Recipes } />
         <Route exact path="/meals/:id" component={ RecipeDetails } />

@@ -76,3 +76,7 @@
   margin-bottom: 2rem;
   padding: 1rem;
 }
+
+.remove-underline {
+  text-decoration: none;
+}

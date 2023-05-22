@@ -74,7 +74,7 @@ export default function Login() {
         </button>
         <h6>
           Não tem cadastro?
-          <Link to="cadastro">{' clique aqui!'}</Link>
+          <Link to="register" className="remove-underline">{' Clique aqui!'}</Link>
         </h6>
 
       </div>
