@@ -41,7 +41,7 @@ describe('UserService', () => {
     it('deve retornar um objeto com token e nome de usuário se o login for bem-sucedido', async () => {
       const email = 'test@example.com';
       const password = 'password';
-      const user = { id: 1, username: 'testuser', password: 'hashedpassword', email };
+      const user = { id: 1, username: 'testuser', password: 'hashedpassword' };
       const token = 'testtoken';
       // @ts-ignore
       sinon.stub(UserModel, 'findOne').returns(user);
@@ -54,7 +54,7 @@ describe('UserService', () => {
 
       expect(result).to.deep.equal({
         token,
-        email,
+        username: user.username,
       });
     });
   });
@@ -76,7 +76,7 @@ describe('UserService', () => {
       sinon.stub(jwt, 'createToken').returns('token');
 
       expect(await UserService.register({email, password, username}))
-        .to.be.deep.equal({token: 'token', email});
+        .to.be.deep.equal({token: 'token', username});
     });
     it('deve retornar um erro caso o email já esteja cadastrado', async () => {
       // @ts-ignore
