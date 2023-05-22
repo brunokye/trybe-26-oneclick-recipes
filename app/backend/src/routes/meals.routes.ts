@@ -3,11 +3,12 @@ import MealController from '../controllers/Meal.controller';
 
 const mealsRouter = Router();
 
-const { findByName, findByFirstLetter, findRandom,
+const { findById, findByName, findByFirstLetter, findRandom,
   findAllCategories, findAllAreas, findAllIngredients,
   findByIngredient, findByCategory, findByArea } = MealController;
 
 mealsRouter
+  .get('/:id', findById)
   // query q=nomes
   .get('/name', findByName)
   // query q=primeira-letra
