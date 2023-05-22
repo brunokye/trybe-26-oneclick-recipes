@@ -3,7 +3,7 @@ import MealController from '../controllers/Meal.controller';
 
 const mealsRouter = Router();
 
-const { findByName, findByFirstLetter, findRandom,
+const { findById, findByName, findByFirstLetter, findRandom,
   findAllCategories, findAllAreas, findAllIngredients,
   findByIngredient, findByCategory, findByArea } = MealController;
 
@@ -21,6 +21,7 @@ mealsRouter
   // query q=category-name
   .get('/category', findByCategory)
   // query q=area-name
-  .get('/area', findByArea);
+  .get('/area', findByArea)
+  .get('/:id', findById);
 
 export default mealsRouter;

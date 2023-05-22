@@ -2,6 +2,12 @@ import { Op, Sequelize } from 'sequelize';
 import MealModel from '../database/models/Meal.model';
 
 export default class MealService {
+  public static async findById(id: string) {
+    return MealModel.findOne({
+      where: { idMeal: id },
+    });
+  }
+
   public static async findByName(name: string) {
     return MealModel.findAll({
       where: {

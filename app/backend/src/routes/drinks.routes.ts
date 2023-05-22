@@ -3,8 +3,8 @@ import DrinkController from '../controllers/Drink.controller';
 
 const drinksRouter = Router();
 
-const { findByName, findByFirstLetter, findRandom,
-  findAllCategories, findAllIngredients,
+const { findById, findByName, findByFirstLetter,
+  findRandom, findAllCategories, findAllIngredients,
   findByIngredient, findByCategory } = DrinkController;
 
 drinksRouter
@@ -18,6 +18,7 @@ drinksRouter
   // query q=ingredient-name
   .get('/ingredient', findByIngredient)
   // query q=category-name
-  .get('/category', findByCategory);
+  .get('/category', findByCategory)
+  .get('/:id', findById);
 
 export default drinksRouter;

@@ -4,6 +4,13 @@ import MealCategoryService from '../services/MealCategory.service';
 import MealIngredientService from '../services/MealIngredient.service';
 
 export default class MealController {
+  public static async findById(req: Request, res: Response) {
+    const { id } = req.params;
+    const drink = await MealService.findById(id);
+
+    res.status(200).json(drink);
+  }
+
   public static async findByName(req: Request, res: Response) {
     const { q = '' } = req.query;
     const meals = await MealService.findByName(q as string);
