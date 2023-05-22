@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { isValidEmail, isValidPassword } from '../helpers';
-import { saveUser } from '../services/userLS';
-
+// import { saveUser } from '../services/userLS';
+import { requestLogin } from '../helpers/fetch';
 import '../styles/login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+  const [fetchError, setfetchError] = useState(false);
+  const [fetchMessage, setFetchMessage] = useState('test');
 
   const history = useHistory();
 
-  const doLogin = () => {
-    saveUser({ email });
-    history.push('/meals');
+  const doLogin = async () => {
+    const data = await requestLogin('/users/login', { email, password });
+    if (data.message) {
+      setfetchError(true);
+      setFetchMessage(data.message);
+    } else {
+      history.push('/meals');
+    }
   };
 
   useEffect(() => {
@@ -26,6 +33,7 @@ export default function Login() {
 
   return (
     <div className="container">
+      <h1>{fetchError && fetchMessage}</h1>
       <h4 className="titleLogin">oneClick Recipes</h4>
       <div className="loginContainer">
         <h6>Login</h6>
