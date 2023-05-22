@@ -1,15 +1,23 @@
 import * as express from 'express';
+import * as cors from 'cors';
 import mealsRouter from './routes/meals.routes';
 import drinksRouter from './routes/drinks.routes';
 import 'express-async-errors';
 import errorHandler from './middlewares/errorHandler';
 import userRouter from './routes/user.routes';
 
+// const corsOptions = {
+//   origin: true,
+//   credentials: true,
+// };
+
 class App {
   public app: express.Express;
 
   constructor() {
     this.app = express();
+
+    this.app.use(cors());
 
     this.config();
 
