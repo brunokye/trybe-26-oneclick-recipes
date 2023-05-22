@@ -8,5 +8,5 @@ export default function errorHandler(
   _next: NextFunction,
 ) {
   const { status, message } = err as HttpException;
-  res.status(status || 500).json({ message });
+  res.status(status || 500).json({ erro: { message } });
 }
