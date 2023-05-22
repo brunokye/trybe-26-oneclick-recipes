@@ -17,8 +17,8 @@ function App() {
     <div className="mainContainerApp">
       <Switch>
         <Route exact path="/" component={ Home } />
-        <Route exact path="/user/login" component={ Login } />
-        <Route exact path="/user/cadastro" component={ Regiter } />
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/cadastro" component={ Regiter } />
         <Route exact path="/meals" component={ Recipes } />
         <Route exact path="/drinks" component={ Recipes } />
         <Route exact path="/meals/:id" component={ RecipeDetails } />
