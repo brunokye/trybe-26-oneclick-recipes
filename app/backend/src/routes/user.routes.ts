@@ -5,8 +5,10 @@ import UserController from '../controllers/User.controller';
 
 const userRouter = Router();
 
+const { login, register } = UserController;
+
 userRouter
-  .post('/login', userLoginVerify, UserController.login)
-  .post('/register', regiterVerify, UserController.register);
+  .post('/login', userLoginVerify, login)
+  .post('/register', regiterVerify, register);
 
 export default userRouter;
