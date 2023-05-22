@@ -1,16 +1,18 @@
-import {compare} from 'bcryptjs';
+import { compare, genSalt, hash } from 'bcryptjs';
 import HttpException from '../utils/http.exception';
-import {createToken} from '../utils/auth';
-import UserModel from '../database/models/User.model';
+import { createToken } from '../utils/auth';
+import UserModel, { UserAttributes, UserCreateAttr } from '../database/models/User.model';
 
 export type Login = {
   email: string;
   password: string;
 };
 
+const SALT = process.env.SALT || 10;
+
 export default class UserService {
-  public static async login({email, password}: Login) {
-    const user = await UserModel.findOne({where: {email}});
+  public static async login({ email, password }: Login) {
+    const user = await UserModel.findOne({ where: { email } });
 
     if (!user) {
       throw new HttpException(401, 'Invalid email or password');
@@ -23,5 +25,23 @@ export default class UserService {
       token: createToken(user.id),
       username: user.username,
     };
+  }
+
+  public static async register({ email, password, username }: UserCreateAttr) {
+    if (await this.getUserByemail(email)) {
+      throw new HttpException(400, 'Email already registered');
+    }
+    const salt = await genSalt(+SALT);
+    const passwordHash = await hash(password, salt);
+    const user: UserAttributes = await UserModel
+      .create({ email, password: passwordHash, username });
+    return {
+      token: createToken(user.id),
+      username: user.username,
+    };
+  }
+
+  static async getUserByemail(email: string): Promise<UserAttributes | null> {
+    return UserModel.findOne({ where: { email } });
   }
 }

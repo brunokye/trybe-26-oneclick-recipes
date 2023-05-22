@@ -58,4 +58,32 @@ describe('UserService', () => {
       });
     });
   });
+  describe('register', () => {
+    const email = 'email@email.com';
+    const  username = 'user';
+    const password = 'password';
+
+    const user = {
+      id: 1,
+      username,
+      email,
+      password,
+    };
+    it('deve retronar o token e o nome do usuário', async () => {
+      sinon.stub(UserService, 'getUserByemail').resolves(null);
+      // @ts-ignore
+      sinon.stub(UserModel, 'create').resolves(user);
+      sinon.stub(jwt, 'createToken').returns('token');
+
+      expect(await UserService.register({email, password, username}))
+        .to.be.deep.equal({token: 'token', username});
+    });
+    it('deve retornar um erro caso o email já esteja cadastrado', async () => {
+      // @ts-ignore
+      sinon.stub(UserService, 'getUserByemail').resolves({email});
+
+      expect(UserService.register({email, password, username}))
+        .to.be.rejectedWith('Email already registered');
+    })
+  })
 });

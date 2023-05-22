@@ -7,4 +7,10 @@ export default class UserController {
 
     res.status(200).json(data);
   }
+
+  public static async register(req: Request, res: Response) {
+    const data = await UserService.register(req.body);
+
+    res.status(201).json(data);
+  }
 }
