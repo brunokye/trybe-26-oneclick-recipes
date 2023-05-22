@@ -11,6 +11,8 @@ drinksRouter.get('/letter', DrinkController.findByFirstLetter);
 
 drinksRouter.get('/random', DrinkController.findRandom);
 
+drinksRouter.get('/categories', DrinkController.findAllCategories);
+
 // query q=ingredient-name
 drinksRouter.get('/ingredient', DrinkController.findByIngredient);
 
