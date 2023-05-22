@@ -6,7 +6,7 @@ const registerSchema = Joi.object({
   username: Joi.string().required().min(2).label('username'),
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
     .required().label('email'),
-  password: Joi.string().required().min(6).label('password'),
+  password: Joi.string().required().min(7).label('password'),
 }).messages({
   'string.empty': erroIsRequired,
   'any.required': erroIsRequired,
