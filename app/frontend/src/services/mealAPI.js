@@ -11,28 +11,37 @@ const messages = {
 export const fetchByIngredient = async (searchInput) => {
   let response;
   if (searchInput) {
-    const { data } = await requestData(`meals/ingredient?q=${searchInput}`);
-    response = data;
+    const { meals } = await requestData(`meals/ingredient?q=${searchInput}`);
+    response = meals;
   } else {
-    const { data } = await requestData('meals/ingredients');
-    response = data;
+    const { meals } = await requestData('meals/ingredients');
+    response = meals;
   }
 
-  const { meals } = await parseJSONResponse(response, []);
-  if (!meals || meals.length === 0) {
+  console.log(response);
+  // const { meals } = await parseJSONResponse(response, []);
+  if (!response || response.length === 0) {
     global.alert(messages.notFound);
   }
   return meals || [];
 };
 
 export const fetchByName = async (searchInput) => {
-  const response = await fetch(`${baseUrl}search.php?s=${searchInput}`);
-
-  const { meals } = await parseJSONResponse(response, []);
-  if (!meals || meals.length === 0) {
+  // const response = await fetch(`${baseUrl}search.php?s=${searchInput}`);
+  let response;
+  if (searchInput) {
+    const { meals } = await requestData(`meals/name?q=${searchInput}`);
+    response = meals;
+  } else {
+    const { meals } = await requestData('meals/name');
+    response = meals;
+  }
+  console.log(response);
+  // const { meals } = await parseJSONResponse(response, []);
+  if (!response || response.length === 0) {
     global.alert(messages.notFound);
   }
-  return meals || [];
+  return response || [];
 };
 
 export const fetchByFirstLetter = async (searchInput) => {
