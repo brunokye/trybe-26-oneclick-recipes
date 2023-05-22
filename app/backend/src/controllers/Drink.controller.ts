@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import DrinkService from '../services/Drink.service';
+import DrinkCategoryService from '../services/DrinkCategory.service';
 
 export default class DrinkController {
   public static async findByName(req: Request, res: Response) {
@@ -34,5 +35,11 @@ export default class DrinkController {
     const drinks = await DrinkService.findRandom();
 
     res.status(200).json({ drinks });
+  }
+
+  public static async findAllCategories(req: Request, res: Response) {
+    const categories = await DrinkCategoryService.findAll();
+
+    res.status(200).json({ meals: categories });
   }
 }
