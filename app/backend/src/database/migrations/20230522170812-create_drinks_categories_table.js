@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       strCategory: { type: Sequelize.STRING },
     });

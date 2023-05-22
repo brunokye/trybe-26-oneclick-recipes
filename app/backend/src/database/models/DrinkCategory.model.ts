@@ -2,7 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '.';
 
 class DrinkCategoryModel extends Model {
-  declare idCategory: string;
+  declare idCategory: number;
   declare strCategory: string;
 }
 
@@ -12,7 +12,7 @@ DrinkCategoryModel.init(
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.STRING,
+      type: DataTypes.NUMBER,
     },
     strCategory: { type: DataTypes.STRING },
   },

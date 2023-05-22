@@ -40,6 +40,6 @@ export default class DrinkController {
   public static async findAllCategories(req: Request, res: Response) {
     const categories = await DrinkCategoryService.findAll();
 
-    res.status(200).json({ meals: categories });
+    res.status(200).json({ drinks: categories });
   }
 }
