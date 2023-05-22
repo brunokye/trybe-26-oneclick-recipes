@@ -7,7 +7,7 @@ import { getUser } from '../services/userLS';
 import '../styles/profile.css';
 
 export default function Profile() {
-  const userEmail = getUser().email;
+  const userEmail = getUser();
 
   return (
     <div className="test">
