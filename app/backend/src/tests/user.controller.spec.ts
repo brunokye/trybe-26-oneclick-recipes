@@ -20,7 +20,7 @@ describe('Login Router', () => {
 
   describe('POST /login', () => {
     it('Deve retornar um token passando parametros corretos', async () => {
-      sinon.stub(UserService, 'login').resolves({ token: 'token', username: 'test' });
+      sinon.stub(UserService, 'login').resolves({ token: 'token', email: 'email@email.com' });
 
       chaiHttpResponse = await chai.request(app)
         .post('/users/login')
@@ -30,7 +30,7 @@ describe('Login Router', () => {
         });
 
       expect(chaiHttpResponse.status).to.be.equal(200);
-      expect(chaiHttpResponse.body).to.be.deep.equal({ token: 'token', username: 'test' });
+      expect(chaiHttpResponse.body).to.be.deep.equal({ token: 'token', email: 'email@email.com' });
     });
     it('Deve retornar status 400 com parametros faltando', async () => {
       chaiHttpResponse = await chai.request(app)

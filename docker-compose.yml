@@ -6,6 +6,8 @@ services:
     ports:
       - 3000:3000
     working_dir: /app-frontend
+    volumes:
+      - ./app/frontend/src:/app-frontend/src
     command: start
     depends_on:
       - backend
