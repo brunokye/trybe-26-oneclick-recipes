@@ -20,7 +20,6 @@ export const requestLogin = async (endpoint, body) => {
   setToken();
   try {
     const { data } = await api.post(endpoint, body);
-    console.log(data);
     if (data.token) {
       saveObject('token', data.token);
       saveUser(data.email);
