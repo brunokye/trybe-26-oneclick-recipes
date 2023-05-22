@@ -88,7 +88,7 @@ export default function Registro() {
         </button>
         <h6>
           Já é cadastrado?
-          <Link to="login">{' clique aqui!'}</Link>
+          <Link to="login" className="remove-underline">{' Clique aqui!'}</Link>
         </h6>
       </div>
     </div>
