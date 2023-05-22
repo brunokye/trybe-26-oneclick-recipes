@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var config = {
+const config = {
     username: process.env.DB_USER || 'root',
     password: process.env.DB_PASS || '123456',
     database: 'RECIPES_APP',
