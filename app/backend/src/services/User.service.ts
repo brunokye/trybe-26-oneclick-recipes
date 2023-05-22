@@ -23,7 +23,7 @@ export default class UserService {
     }
     return {
       token: createToken(user.id),
-      username: user.username,
+      email: user.email,
     };
   }
 
@@ -35,10 +35,10 @@ export default class UserService {
     const passwordHash = await hash(password, salt);
     const user: UserAttributes = await UserModel
       .create({ email, password: passwordHash, username });
-    return {
-      token: createToken(user.id),
-      username: user.username,
-    };
+      return {
+        token: createToken(user.id),
+        email: user.email,
+      };
   }
 
   static async getUserByemail(email: string): Promise<UserAttributes | null> {
