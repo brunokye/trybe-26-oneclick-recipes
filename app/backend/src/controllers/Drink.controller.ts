@@ -8,7 +8,7 @@ export default class DrinkController {
     const { id } = req.params;
     const drink = await DrinkService.findById(id);
 
-    res.status(200).json(drink);
+    res.status(200).json({ drinks: [drink] });
   }
 
   public static async findByName(req: Request, res: Response) {

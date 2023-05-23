@@ -26,7 +26,7 @@ export const requestLogin = async (endpoint, body) => {
     }
     return data;
   } catch (e) {
-    return e.response.data.erro;
+    return e.response.data;
   }
 };
 
