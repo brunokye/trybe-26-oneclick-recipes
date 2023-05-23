@@ -1,7 +1,4 @@
 import { requestData } from '../helpers/fetch';
-// import { parseJSONResponse } from '../helpers';
-
-// const baseUrl = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
 const messages = {
   notFound: 'Sorry, we haven\'t found any recipes for these filters.',
@@ -9,7 +6,6 @@ const messages = {
 };
 
 export const fetchByIngredient = async (searchInput) => {
-  // const response = await fetch(`${baseUrl}filter.php?i=${searchInput}`);
   let response;
   if (searchInput) {
     const { meals } = await requestData(`drinks/ingredient?q=${searchInput}`);
@@ -19,7 +15,6 @@ export const fetchByIngredient = async (searchInput) => {
     response = meals;
   }
 
-  // const { drinks } = await parseJSONResponse(response, []);
   if (!response || response.length === 0) {
     global.alert(messages.notFound);
   }
@@ -27,7 +22,6 @@ export const fetchByIngredient = async (searchInput) => {
 };
 
 export const fetchByName = async (searchInput) => {
-  // const response = await fetch(`${baseUrl}search.php?s=${searchInput}`);
   let response;
   if (searchInput) {
     const { meals } = await requestData(`drinks/name?q=${searchInput}`);
@@ -37,7 +31,6 @@ export const fetchByName = async (searchInput) => {
     response = meals;
   }
 
-  // const { drinks } = await parseJSONResponse(response, []);
   if (!response || response.length === 0) {
     global.alert(messages.notFound);
   }
@@ -45,7 +38,6 @@ export const fetchByName = async (searchInput) => {
 };
 
 export const fetchByFirstLetter = async (searchInput) => {
-  // const response = await fetch(`${baseUrl}search.php?f=${searchInput}`);
   let response;
   if (searchInput) {
     const { meals } = await requestData(`drinks/letter?q=${searchInput}`);
@@ -55,7 +47,6 @@ export const fetchByFirstLetter = async (searchInput) => {
     response = meals;
   }
 
-  // const { drinks } = await parseJSONResponse(response, []);
   if (!response || response.length === 0) {
     global.alert(messages.notFound);
   }
@@ -63,9 +54,6 @@ export const fetchByFirstLetter = async (searchInput) => {
 };
 
 export const fetchDrinksById = async (id) => {
-  // const response = await fetch(`${baseUrl}lookup.php?i=${id}`);
-
-  // const { drinks } = await parseJSONResponse(response, []);
   const { drinks } = await requestData(`/drinks/${id}`);
   if (!drinks || drinks.length === 0) {
     global.alert(messages.notFound);
@@ -97,22 +85,16 @@ export const fetchByType = async (searchType, searchInput) => {
 };
 
 export const fetchDrinks = async () => {
-  // const response = await fetch(`${baseUrl}search.php?s=`);
-  // const { drinks } = await response.json();
   const { drinks } = await requestData('/drinks/name');
   return drinks;
 };
 
 export const fetchDrinksCategories = async () => {
-  // const response = await fetch(`${baseUrl}list.php?c=list`);
-  // const { drinks } = await response.json();
   const { drinks } = await requestData('/drinks/categories');
   return drinks;
 };
 
 export const fetchDrinksByCategory = async (category) => {
-  // const response = await fetch(`${baseUrl}filter.php?c=${category}`);
-  // const { drinks } = await response.json();
   const { drinks } = await requestData(`/drinks/category?q=${category}`);
   return drinks;
 };
