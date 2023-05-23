@@ -14,6 +14,7 @@ import {
 } from '../helpers/helpers_recipe_in_progess';
 import '../styles/recipesInProgress.css';
 import { finishInProgress, requestData, updateInProgress } from '../helpers/fetch';
+import { finishConstructor } from '../helpers';
 
 export default function RecipeInProgress() {
   const history = useHistory();
@@ -127,7 +128,10 @@ export default function RecipeInProgress() {
   }, [checkDisabledBtn, checked]);
 
   const handleFinishRecipeBtn = async () => {
-    await finishInProgress(`recipes/${typeOfUrl}/in-progress/${id}/finish`);
+    const recipe = meals || drinks;
+    const body = finishConstructor(recipe);
+    const endPoint = `recipes/${typeOfUrl}/in-progress/${id}/finish`;
+    await finishInProgress(endPoint, body);
     handleFinishRecipeBtnHelper(meals, drinks, typeOfUrl);
     history.push('/done-recipes');
   };
