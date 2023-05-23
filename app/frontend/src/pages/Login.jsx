@@ -39,7 +39,6 @@ export default function Login() {
 
   return (
     <div className="container">
-      <h1>{fetchError && fetchMessage}</h1>
       <h4 className="titleLogin">oneClick Recipes</h4>
       <div className="loginContainer">
         <h6>Login</h6>
@@ -63,6 +62,7 @@ export default function Login() {
             value={ password }
           />
         </label>
+        <h8>{fetchError && fetchMessage}</h8>
         <button
           type="button"
           data-testid="login-submit-btn"
@@ -75,7 +75,6 @@ export default function Login() {
           Não tem cadastro?
           <Link to="register" className="remove-underline">{' Clique aqui!'}</Link>
         </h6>
-
       </div>
     </div>
   );
