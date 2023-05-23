@@ -41,10 +41,10 @@ export const updateInProgress = async (endpoint, body) => {
   }
 };
 
-export const finishInProgress = async (endpoint) => {
+export const finishInProgress = async (endpoint, body) => {
   setToken();
   try {
-    await api.post(endpoint);
+    await api.post(endpoint, body);
   } catch (e) {
     console.log(e);
   }
