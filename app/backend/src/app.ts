@@ -1,7 +1,8 @@
 import * as express from 'express';
+import 'express-async-errors';
 import mealsRouter from './routes/meals.routes';
 import drinksRouter from './routes/drinks.routes';
-import 'express-async-errors';
+import recipesRouter from './routes/recipes.routes';
 import errorHandler from './middlewares/errorHandler';
 import userRouter from './routes/user.routes';
 
@@ -16,6 +17,10 @@ class App {
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.use('/meals', mealsRouter);
     this.app.use('/drinks', drinksRouter);
+    this.app.use('/recipes', recipesRouter);
+    this.app.use('/users', userRouter);
+
+    this.app.use(errorHandler);
   }
 
   private config():void {
@@ -28,12 +33,6 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-
-    // route
-    this.app.use('/users', userRouter);
-
-    // error handler
-    this.app.use(errorHandler);
   }
 
   public start(PORT: string | number):void {

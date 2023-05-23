@@ -6,7 +6,7 @@ module.exports = {
       {
         username: 'admin',
         email: 'admin@admin.com',
-        password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
+        password: '$2y$10$UzmhXVpIn8Bs700xm5JLNuDBOFPCt.DBSFEXQ0USpkoiPmi58bmfK'
           // senha: Abc123@
       },
     ], {});
