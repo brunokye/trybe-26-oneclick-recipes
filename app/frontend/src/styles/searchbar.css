@@ -53,6 +53,11 @@
   justify-content: space-between;
 }
 
+.radiosContainer label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
 .radiosContainer label input {
   appearance: none;

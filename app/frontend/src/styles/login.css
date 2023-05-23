@@ -80,3 +80,8 @@
 .remove-underline {
   text-decoration: none;
 }
+
+h8 {
+  text-align: center;
+  font-weight: 500;
+}

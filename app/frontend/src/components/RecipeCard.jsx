@@ -59,7 +59,7 @@ export default function RecipeCard({
                     </h6>
                   </div>
                   <p>
-                    <span>Done in:</span>
+                    <span>Done in: </span>
                     <span data-testid={ `${index}-horizontal-done-date` }>
                       { doneDate }
                     </span>
@@ -93,7 +93,7 @@ export default function RecipeCard({
                     />
                   </button>
                   { copyLink && (
-                    <span>Link copied!</span>
+                    <span> Link copied!</span>
                   ) }
                 </div>
               </div>
