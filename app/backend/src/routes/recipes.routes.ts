@@ -17,4 +17,9 @@ recipesRouter.post('/meals/in-progress/:idMeal/finish', [
   RecipeController.finishMealRecipeInProgress,
 ]);
 
+recipesRouter.get('/done', [
+  authVerify,
+  RecipeController.getDoneRecipes,
+]);
+
 export default recipesRouter;
