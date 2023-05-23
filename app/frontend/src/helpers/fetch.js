@@ -31,4 +31,14 @@ export const requestLogin = async (endpoint, body) => {
   }
 };
 
+export const updateInProgress = async (endpoint, body) => {
+  setToken();
+  try {
+    const { data } = await api.patch(endpoint, body);
+    return data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 export default api;
