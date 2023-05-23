@@ -43,7 +43,7 @@ export default class RecipeController {
 
   public static async getDoneRecipes(req: Request, res: Response) {
     const { idUser } = req.headers;
-    const { type } = req.query;
+    const { type = '' } = req.query;
 
     const recipes = await RecipesDoneService
       .getFinishedMealRecipes(idUser as string, type as string);
