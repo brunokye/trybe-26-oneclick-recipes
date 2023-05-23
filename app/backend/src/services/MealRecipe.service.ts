@@ -1,4 +1,6 @@
 import MealRecipeInProgressModel from '../database/models/MealRecipeInProgress.model';
+import RecipesDoneModel from '../database/models/RecipesDone.model';
+import { RecipeDone } from '../dtos/recipe/recipeDone.dto';
 
 export default class MealRecipeService {
   public static async getMealRecipeInProgress(idUser: number, idMeal: string) {
@@ -33,7 +35,8 @@ export default class MealRecipeService {
     return mealRecipe;
   }
 
-  public static async finishMealRecipeInProgress(idUser: number, idMeal: string) {
+  public static async finishMealRecipeInProgress(recipe: RecipeDone) {
+    const { idRecipe: idMeal, idUser } = recipe;
     const mealRecipe = await MealRecipeInProgressModel.update(
       { isFinished: true },
       {
@@ -44,7 +47,7 @@ export default class MealRecipeService {
         },
       },
     );
-
+    await RecipesDoneModel.upsert({ ...recipe, type: 'meal' });
     return mealRecipe;
   }
 }

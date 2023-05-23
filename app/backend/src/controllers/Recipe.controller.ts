@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import MealRecipeService from '../services/MealRecipe.service';
+import { RecipeDone } from '../dtos/recipe/recipeDone.dto';
+import RecipesDoneService from '../services/RecipesDone.service';
 
 export default class RecipeController {
   public static async getMealRecipeInProgress(req: Request, res: Response) {
@@ -22,8 +24,29 @@ export default class RecipeController {
   public static async finishMealRecipeInProgress(req: Request, res: Response) {
     const { idMeal } = req.params;
     const { idUser } = req.headers;
+    const { category, alcoholicOrNot, name, image, nationality, tags } = req.body;
 
-    await MealRecipeService.finishMealRecipeInProgress(Number(idUser), idMeal);
+    const recipe = {
+      idUser: Number(idUser),
+      idRecipe: idMeal,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+      nationality,
+      tags,
+    } as RecipeDone;
+
+    await MealRecipeService.finishMealRecipeInProgress(recipe);
     res.status(200).json({ message: 'ok' });
+  }
+
+  public static async getDoneRecipes(req: Request, res: Response) {
+    const { idUser } = req.headers;
+    const { type } = req.query;
+
+    const recipes = await RecipesDoneService
+      .getFinishedMealRecipes(idUser as string, type as string);
+    res.status(200).json(recipes);
   }
 }
