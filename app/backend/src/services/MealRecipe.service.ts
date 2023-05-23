@@ -12,11 +12,9 @@ export default class MealRecipeService {
         { association: 'meal' },
       ],
     });
-
     if (!mealRecipe) {
       return this.updateMealRecipeInProgress(idUser.toString(), +idMeal, 'strIngredient1', false);
     }
-
     return mealRecipe;
   }
 

@@ -32,6 +32,7 @@ export default function RecipeInProgress() {
     one: -1,
     three: 3,
     thousand: 1000,
+    twenty: 20,
   };
 
   const getInProgress = useCallback(async () => {
@@ -81,6 +82,16 @@ export default function RecipeInProgress() {
     getInProgress();
   }, [getInProgress, id, typeOfUrl]);
 
+  const contador = useCallback(() => {
+    let count = 0;
+    for (let i = 0; i < magicNum.twenty; i += 1) {
+      if (checked[`strIngredient${i}`]) {
+        count += 1;
+      }
+    }
+    return count;
+  }, [checked, magicNum.twenty]);
+
   const checkDisabledBtn = useCallback(() => {
     let ingredients = [];
     if (typeOfUrl === 'meals') {
@@ -91,7 +102,7 @@ export default function RecipeInProgress() {
       ingredients = [...callDrinks];
     }
     try {
-      if (checked[typeOfUrl][id]?.length === ingredients.length) {
+      if (contador() >= ingredients.length) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
@@ -99,7 +110,8 @@ export default function RecipeInProgress() {
     } catch (error) {
       setIsDisabled(true);
     }
-  }, [checked, id, isChecked, typeOfUrl, meals, drinks, handleChecked]);
+  }, [typeOfUrl, meals, isChecked, handleChecked, drinks, contador]);
+
   const favoriteRecipe = () => {
     if (favorite === false) {
       setFavoriteRecipes([...favoriteRecipes, newRecipe]);
