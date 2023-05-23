@@ -123,9 +123,9 @@ DrinkRecipeInProgressModel.init(
   },
 );
 
-DrinkModel.hasMany(DrinkRecipeInProgressModel, { foreignKey: 'idDrink', as: 'drink' });
+DrinkModel.hasMany(DrinkRecipeInProgressModel, { foreignKey: 'idDrink', as: 'recipes' });
 DrinkRecipeInProgressModel.belongsTo(DrinkModel, { foreignKey: 'idDrink', as: 'drink' });
-UserModel.hasMany(DrinkRecipeInProgressModel, { foreignKey: 'idUser', as: 'user' });
+UserModel.hasMany(DrinkRecipeInProgressModel, { foreignKey: 'idUser', as: 'drinkRecipes' });
 DrinkRecipeInProgressModel.belongsTo(UserModel, { foreignKey: 'idUser', as: 'user' });
 
 export default DrinkRecipeInProgressModel;

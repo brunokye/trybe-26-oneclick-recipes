@@ -49,7 +49,7 @@ export default class MealRecipeService {
         },
       },
     );
-    await RecipesDoneModel.upsert({ ...recipe, type: 'meal' });
+    await RecipesDoneModel.upsert(recipe);
     return mealRecipe;
   }
 }

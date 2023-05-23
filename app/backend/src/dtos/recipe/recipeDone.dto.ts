@@ -8,4 +8,5 @@ export type RecipeDone = {
   doneDate: Date;
   nationality: string;
   tags: string;
+  type: string;
 };
