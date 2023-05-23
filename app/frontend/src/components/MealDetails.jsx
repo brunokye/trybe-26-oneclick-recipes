@@ -48,7 +48,7 @@ export default function MealDetails({ result }) {
     const ingredientList = [];
 
     const verifyRecipe = favoriteRecipes.some((recipes) => recipes.id === newRecipe.id);
-    if (verifyRecipe) setFavorite(true);
+    if (verifyRecipe) { setFavorite(true); }
 
     if (result) {
       for (let i = 1; i <= maxIngredient; i += 1) {
@@ -62,7 +62,7 @@ export default function MealDetails({ result }) {
     }
 
     setIngredients(ingredientList);
-  }, [result]);
+  }, [favoriteRecipes, newRecipe.id, result]);
 
   const magicNum = 1000;
 
@@ -85,11 +85,11 @@ export default function MealDetails({ result }) {
     return setFavorite(false);
   };
 
-  if (idDone) {
-    history.push('/done-receipes');
-    return;
-  }
-  if (ingredients.length === 0) return <div>Loading...</div>;
+  // if (idDone) {
+  //   history.push('/done-receipes');
+  //   return;
+  // }
+  if (ingredients.length === 0) { return <div>Loading...</div>; }
   return (
     <div className="recipeContainer">
       <h2

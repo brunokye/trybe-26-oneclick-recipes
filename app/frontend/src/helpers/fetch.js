@@ -12,6 +12,7 @@ export const setToken = () => {
 };
 
 export const requestData = async (endpoint) => {
+  setToken();
   const { data } = await api.get(endpoint);
   return data;
 };
@@ -27,6 +28,25 @@ export const requestLogin = async (endpoint, body) => {
     return data;
   } catch (e) {
     return e.response.data;
+  }
+};
+
+export const updateInProgress = async (endpoint, body) => {
+  setToken();
+  try {
+    const { data } = await api.patch(endpoint, body);
+    return data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+export const finishInProgress = async (endpoint) => {
+  setToken();
+  try {
+    await api.post(endpoint);
+  } catch (e) {
+    console.log(e);
   }
 };
 

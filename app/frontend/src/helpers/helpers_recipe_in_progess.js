@@ -21,7 +21,7 @@ export const callIngredients = (
   const variable = meals !== undefined ? meals : drinks;
   for (let i = 1; i <= magicNum; i += 1) {
     if (variable[`strIngredient${i}`]) {
-      console.log(variable);
+      // console.log(variable);
       ingredients.push(
         <li
           key={ i }
@@ -30,17 +30,20 @@ export const callIngredients = (
           <label
             htmlFor={ i }
             data-testid={ `${i - 1}-ingredient-step` }
-            style={ {
-              textDecoration: isChecked(variable[`strIngredient${i}`])
-                ? 'line-through solid rgb(0, 0, 0)'
-                : 'none',
+            style={ { textDecoration:
+              (
+                isChecked(`strIngredient${i}`)
+                  ? 'line-through solid rgb(0, 0, 0)'
+                  : 'none'
+              ),
             } }
           >
             <input
               id={ i }
               type="checkbox"
+              name={ `strIngredient${i}` }
               onChange={ handleChecked }
-              checked={ isChecked(variable[`strIngredient${i}`]) }
+              checked={ isChecked(`strIngredient${i}`) }
               value={ variable[`strIngredient${i}`] }
             />
             {variable[`strIngredient${i}`]}
