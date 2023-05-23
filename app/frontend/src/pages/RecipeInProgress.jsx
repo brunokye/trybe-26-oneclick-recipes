@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { require } from 'clipboard-copy';
-import { readObject, saveObject } from '../helpers/localStorage';
+import { saveObject } from '../helpers/localStorage';
 import { fetchByType as fetchMealByID } from '../services/mealAPI';
 import { fetchByType as fetchDrinkByID } from '../services/cockTailAPI';
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -13,8 +13,9 @@ import {
   newRecipe as newRecipeHelper,
 } from '../helpers/helpers_recipe_in_progess';
 import '../styles/recipesInProgress.css';
+import { requestData } from '../helpers/fetch';
 
-function RecipeInProgress() {
+export default function RecipeInProgress() {
   const history = useHistory();
   const { id } = useParams();
   const location = useLocation();
@@ -33,10 +34,17 @@ function RecipeInProgress() {
     thousand: 1000,
   };
 
+  const getInProgress = useCallback(async () => {
+    const data = await requestData(`recipes/${typeOfUrl}/in-progress/${id}`);
+    console.log(data);
+    setChecked(data);
+  }, [id, typeOfUrl]);
+
   useEffect(() => {
-    const localStorageGet = readObject('inProgressRecipes', {});
-    setChecked(localStorageGet);
-  }, []);
+    // const localStorageGet = readObject('inProgressRecipes', {});
+    // setChecked(localStorageGet);
+    getInProgress();
+  }, [getInProgress]);
 
   useEffect(() => {
     let fetchByID;
@@ -50,14 +58,15 @@ function RecipeInProgress() {
       };
     }
     fetchByID();
-  }, [id]);
+    getInProgress();
+  }, [getInProgress, id, typeOfUrl]);
 
   const newRecipe = newRecipeHelper(meals, drinks, typeOfUrl, magicNum);
 
   useEffect(() => {
     const verifyRecipe = favoriteRecipes.some((recipes) => recipes.id === newRecipe.id);
-    if (verifyRecipe) setFavorite(true);
-  }, [meals, drinks]);
+    if (verifyRecipe) { setFavorite(true); }
+  }, [meals, drinks, favoriteRecipes, newRecipe.id]);
 
   const copyToClipboard = (idParam) => {
     const copy = require('clipboard-copy');
@@ -67,19 +76,10 @@ function RecipeInProgress() {
     setTimeout(() => setCopyLink(false), magicNum.thousand);
   };
 
-  const isChecked = (ingredient) => {
-    try {
-      if (checked[typeOfUrl][id]?.includes(ingredient)) {
-        return true;
-      }
-    } catch (error) {
-      return false;
-    }
-  };
+  const isChecked = (ingredient) => checked[ingredient];
 
   const handleChecked = (event) => {
-    if (!checked[typeOfUrl]) checked[typeOfUrl] = {};
-
+    if (!checked[typeOfUrl]) { checked[typeOfUrl] = {}; }
     const ingredient = event.target.value;
     const checkedList = checked[typeOfUrl][id] || [];
     if (!isChecked(ingredient)) {
@@ -100,7 +100,6 @@ function RecipeInProgress() {
       });
     }
   };
-
   const checkDisabledBtn = () => {
     let ingredients = [];
     if (typeOfUrl === 'meals') {
@@ -138,7 +137,6 @@ function RecipeInProgress() {
     handleFinishRecipeBtnHelper(meals, drinks, typeOfUrl);
     history.push('/done-recipes');
   };
-
   return (
     <div>
       {meals.length === 0 ? null : (
@@ -244,5 +242,3 @@ function RecipeInProgress() {
     </div>
   );
 }
-
-export default RecipeInProgress;
