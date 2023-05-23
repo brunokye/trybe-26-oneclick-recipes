@@ -6,9 +6,9 @@ import MealIngredientService from '../services/MealIngredient.service';
 export default class MealController {
   public static async findById(req: Request, res: Response) {
     const { id } = req.params;
-    const drink = await MealService.findById(id);
+    const meal = await MealService.findById(id);
 
-    res.status(200).json(drink);
+    res.status(200).json({ meals: [meal] });
   }
 
   public static async findByName(req: Request, res: Response) {
