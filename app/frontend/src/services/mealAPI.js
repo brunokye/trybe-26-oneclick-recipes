@@ -1,7 +1,7 @@
-import { parseJSONResponse } from '../helpers';
+// import { parseJSONResponse } from '../helpers';
 import { requestData } from '../helpers/fetch';
 
-const baseUrl = 'https://www.themealdb.com/api/json/v1/1/';
+// const baseUrl = 'https://www.themealdb.com/api/json/v1/1/';
 
 const messages = {
   notFound: 'Sorry, we haven\'t found any recipes for these filters.',
@@ -61,9 +61,9 @@ export const fetchByFirstLetter = async (searchInput) => {
 };
 
 export const fetchMealsById = async (id) => {
-  const response = await fetch(`${baseUrl}lookup.php?i=${id}`);
-
-  const { meals } = await parseJSONResponse(response, []);
+  // const response = await fetch(`${baseUrl}lookup.php?i=${id}`);
+  const { meals } = await requestData(`/meals/${id}`);
+  // const { meals } = await parseJSONResponse(response, []);
   if (!meals || meals.length === 0) {
     global.alert(messages.notFound);
   }
