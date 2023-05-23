@@ -41,4 +41,13 @@ export const updateInProgress = async (endpoint, body) => {
   }
 };
 
+export const finishInProgress = async (endpoint) => {
+  setToken();
+  try {
+    await api.post(endpoint);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export default api;
