@@ -12,35 +12,35 @@ export default class MealController {
   }
 
   public static async findByName(req: Request, res: Response) {
-    const { q = '' } = req.query;
+    const { q } = req.query;
     const meals = await MealService.findByName(q as string);
 
     res.status(200).json({ meals });
   }
 
   public static async findByFirstLetter(req: Request, res: Response) {
-    const { q = '' } = req.query;
+    const { q } = req.query;
     const meals = await MealService.findByFirstLetter(q as string);
 
     res.status(200).json({ meals });
   }
 
   public static async findByCategory(req: Request, res: Response) {
-    const { q = '' } = req.query;
+    const { q } = req.query;
     const meals = await MealService.findByCategory(q as string);
 
     res.status(200).json({ meals });
   }
 
   public static async findByArea(req: Request, res: Response) {
-    const { q = '' } = req.query;
+    const { q } = req.query;
     const meals = await MealService.findByArea(q as string);
 
     res.status(200).json({ meals });
   }
 
   public static async findByIngredient(req: Request, res: Response) {
-    const { q = '' } = req.query;
+    const { q } = req.query;
     const meals = await MealService.findByIngredient(q as string);
 
     res.status(200).json({ meals });
