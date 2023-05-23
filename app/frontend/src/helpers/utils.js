@@ -12,5 +12,5 @@ export const finishConstructor = (recipe) => ({
   name: recipe.strMeal || recipe.strDrink,
   image: recipe.strMealThumb || recipe.strDrinkThumb,
   nationality: recipe.strArea || '',
-  tags: recipe.strTags,
+  tags: recipe.strTags || '',
 });
