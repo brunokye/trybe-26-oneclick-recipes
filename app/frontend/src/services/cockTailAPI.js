@@ -63,9 +63,10 @@ export const fetchByFirstLetter = async (searchInput) => {
 };
 
 export const fetchDrinksById = async (id) => {
-  const response = await fetch(`${baseUrl}lookup.php?i=${id}`);
+  // const response = await fetch(`${baseUrl}lookup.php?i=${id}`);
 
-  const { drinks } = await parseJSONResponse(response, []);
+  // const { drinks } = await parseJSONResponse(response, []);
+  const { drinks } = await requestData(`/drinks/${id}`);
   if (!drinks || drinks.length === 0) {
     global.alert(messages.notFound);
   }
