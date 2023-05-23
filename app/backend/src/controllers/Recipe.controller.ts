@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import MealRecipeService from '../services/MealRecipe.service';
+import { RecipeFavorite } from '../dtos/recipe/recipeFavorite.dto';
 import { RecipeDone } from '../dtos/recipe/recipeDone.dto';
 import RecipesDoneService from '../services/RecipesDone.service';
 import RecipesFavovitesService from '../services/RecipesFavorite.service';
@@ -62,13 +63,19 @@ export default class RecipeController {
 
   public static async addFavoriteRecipe(req: Request, res: Response) {
     const { idUser } = req.headers;
-    const { type } = req.query;
+    const { idRecipe } = req.params;
+    const { category, alcoholicOrNot, name, image, nationality, type } = req.body;
 
     const recipe = {
       idUser: Number(idUser),
-      ...req.body,
-      type: type as string,
-    } as RecipeDone;
+      idRecipe,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+      nationality,
+      type,
+    } as RecipeFavorite;
 
     await RecipesFavovitesService.addFavoriteRecipe(recipe);
     res.status(200).json({ message: 'ok' });

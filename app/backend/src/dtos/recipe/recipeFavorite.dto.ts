@@ -6,4 +6,5 @@ export type RecipeFavorite = {
   name: string;
   image: string;
   nationality: string;
+  type: string;
 };
