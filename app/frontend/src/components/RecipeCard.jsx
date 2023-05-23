@@ -66,7 +66,7 @@ export default function RecipeCard({
                   </p>
                   <div>
                     {
-                      tags
+                      tags.split(',')
                         .map((tag) => (
                           <button
                             type="button"
