@@ -38,12 +38,22 @@ MealRecipeInProgressModel.init(
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
     },
     idMeal: {
       allowNull: false,
       type: DataTypes.STRING,
       primaryKey: true,
       autoIncrement: false,
+      references: {
+        model: 'meals',
+        key: 'idMeal',
+      },
+      onDelete: 'CASCADE',
     },
     strIngredient1: {
       type: DataTypes.BOOLEAN,

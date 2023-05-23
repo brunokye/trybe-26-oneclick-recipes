@@ -8,12 +8,22 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: false,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
       },
       idMeal: {
         allowNull: false,
         type: Sequelize.STRING,
         primaryKey: true,
         autoIncrement: false,
+        references: {
+          model: 'meals',
+          key: 'idMeal',
+        },
+        onDelete: 'CASCADE',
       },
       strIngredient1: {
         type: Sequelize.BOOLEAN,
