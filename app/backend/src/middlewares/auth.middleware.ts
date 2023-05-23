@@ -10,6 +10,8 @@ const authVerify = (req: Request, _res: Response, next: NextFunction) => {
     throw new HttpException(401, message as string);
   }
 
+  req.headers.idUser = id.toString();
+
   next();
 };
 
