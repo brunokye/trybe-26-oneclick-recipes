@@ -30,7 +30,7 @@ export default function RecipeDetails() {
     fetchData();
   }, [verifyPath, id]);
 
-  if (!result) return <div>Loading...</div>;
+  if (!result) { return <div>Loading...</div>; }
   return (
     <div className="recipeDetailContainer">
       { verifyPath
