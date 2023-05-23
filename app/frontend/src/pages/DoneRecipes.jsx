@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import FilterBtn from '../components/FilterBtn';
 
 import '../styles/doneRecipes.css';
+import { requestData } from '../helpers/fetch';
 
 const TYPES = ['All', 'Meals', 'Drinks'];
 
 export default function DoneRecipes() {
-  const doneRecipesLS = localStorage.getItem('doneRecipes');
-  const doneRecipes = JSON.parse(doneRecipesLS);
-
+  const [doneRecipes, setDoneRecipes] = useState(null);
   const [usedFilter, setUsedFilter] = useState('All');
+
+  useEffect(() => {
+    const doneFetch = async () => {
+      const data = await requestData('/recipes/done?type');
+      setDoneRecipes(data);
+    };
+    doneFetch();
+  }, [usedFilter]);
 
   const clickToFilter = (type) => {
     setUsedFilter(type);
@@ -33,7 +40,7 @@ export default function DoneRecipes() {
         }
       </section>
       {
-        doneRecipesLS !== null && (
+        doneRecipes && (
           <section id="cards">
             {
               usedFilter === 'Meals' && (
@@ -42,8 +49,8 @@ export default function DoneRecipes() {
                   .map((recipe, index) => (
                     <RecipeCard
                       title="Done Recipes"
-                      key={ recipe.id }
-                      recipeId={ recipe.id }
+                      key={ recipe.idRecipe }
+                      recipeId={ recipe.idRecipe }
                       index={ index }
                       image={ recipe.image }
                       name={ recipe.name }
@@ -64,8 +71,8 @@ export default function DoneRecipes() {
                   .map((recipe, index) => (
                     <RecipeCard
                       title="Done Recipes"
-                      key={ recipe.id }
-                      recipeId={ recipe.id }
+                      key={ recipe.idRecipe }
+                      recipeId={ recipe.idRecipe }
                       index={ index }
                       image={ recipe.image }
                       name={ recipe.name }
@@ -85,8 +92,8 @@ export default function DoneRecipes() {
                   .map((recipe, index) => (
                     <RecipeCard
                       title="Done Recipes"
-                      key={ recipe.id }
-                      recipeId={ recipe.id }
+                      key={ recipe.idRecipe }
+                      recipeId={ recipe.idRecipe }
                       index={ index }
                       image={ recipe.image }
                       name={ recipe.name }
@@ -104,7 +111,7 @@ export default function DoneRecipes() {
         )
       }
       {
-        doneRecipesLS === null && (
+        doneRecipes === null && (
           <div>
             <h6>You have not completed any recipe yet!</h6>
             <Link to="/meals">
