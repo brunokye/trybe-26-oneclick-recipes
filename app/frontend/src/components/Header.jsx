@@ -13,7 +13,12 @@ export default function Header({ title, searchEnabled }) {
   return (
     <div className="headerContainer">
       <div className="topContainer">
-        <h3 data-testid="page-title">{ title }</h3>
+        <h3 
+          data-testid="page-title"
+          className="headerTitle"
+        >
+            { title }
+        </h3>
 
         { searchEnabled ? (
           <button
