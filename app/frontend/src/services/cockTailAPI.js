@@ -1,7 +1,7 @@
-import { parseJSONResponse } from '../helpers';
 import { requestData } from '../helpers/fetch';
+// import { parseJSONResponse } from '../helpers';
 
-const baseUrl = 'https://www.thecocktaildb.com/api/json/v1/1/';
+// const baseUrl = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
 const messages = {
   notFound: 'Sorry, we haven\'t found any recipes for these filters.',
