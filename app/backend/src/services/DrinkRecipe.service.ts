@@ -26,15 +26,13 @@ export default class DrinkRecipeService {
     idDrink: string,
     value: boolean,
   ) {
-    const drinkRecipe = await DrinkRecipeInProgressModel.upsert(
+    return DrinkRecipeInProgressModel.upsert(
       {
         idDrink,
         idUser,
         [idField]: value,
       },
     );
-
-    return drinkRecipe;
   }
 
   public static async finishDrinkRecipeInProgress(recipe: RecipeDone) {

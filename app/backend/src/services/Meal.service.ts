@@ -8,7 +8,7 @@ export default class MealService {
     });
   }
 
-  public static async findByName(name: string) {
+  public static async findByName(name = '') {
     return MealModel.findAll({
       where: {
         strMeal: {
@@ -18,7 +18,7 @@ export default class MealService {
     });
   }
 
-  public static async findByFirstLetter(letter: string) {
+  public static async findByFirstLetter(letter = '') {
     return MealModel.findAll({
       where: {
         strMeal: {
@@ -28,7 +28,7 @@ export default class MealService {
     });
   }
 
-  public static async findByCategory(category: string) {
+  public static async findByCategory(category = '') {
     return MealModel.findAll({
       where: {
         strCategory: category,
@@ -36,7 +36,7 @@ export default class MealService {
     });
   }
 
-  public static async findByArea(area: string) {
+  public static async findByArea(area = '') {
     return MealModel.findAll({
       where: {
         strArea: area,
@@ -61,7 +61,7 @@ export default class MealService {
     });
   }
 
-  public static async findByIngredient(ingredient: string) {
+  public static async findByIngredient(ingredient = '') {
     return MealModel.findAll({
       where: {
         strIngredient1: ingredient,

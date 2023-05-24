@@ -26,15 +26,13 @@ export default class MealRecipeService {
     idMeal: string,
     value: boolean,
   ) {
-    const mealRecipe = await MealRecipeInProgressModel.upsert(
+    return MealRecipeInProgressModel.upsert(
       {
         idMeal,
         idUser,
         [idField]: value,
       },
     );
-
-    return mealRecipe;
   }
 
   public static async finishMealRecipeInProgress(recipe: RecipeDone) {

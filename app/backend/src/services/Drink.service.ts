@@ -8,7 +8,7 @@ export default class DrinkService {
     });
   }
 
-  public static async findByName(name: string) {
+  public static async findByName(name = '') {
     return DrinkModel.findAll({
       where: {
         strDrink: {
@@ -18,7 +18,7 @@ export default class DrinkService {
     });
   }
 
-  public static async findByFirstLetter(letter: string) {
+  public static async findByFirstLetter(letter = '') {
     return DrinkModel.findAll({
       where: {
         strDrink: {
@@ -28,7 +28,7 @@ export default class DrinkService {
     });
   }
 
-  public static async findByCategory(category: string) {
+  public static async findByCategory(category = '') {
     return DrinkModel.findAll({
       where: {
         strCategory: category,
@@ -43,7 +43,7 @@ export default class DrinkService {
     });
   }
 
-  public static async findByIngredient(ingredient: string) {
+  public static async findByIngredient(ingredient = '') {
     return DrinkModel.findAll({
       where: {
         strIngredient1: ingredient,

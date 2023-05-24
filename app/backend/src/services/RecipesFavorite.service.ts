@@ -3,13 +3,12 @@ import { RecipeFavorite } from '../dtos/recipe/recipeFavorite.dto';
 
 export default class RecipesFavovitesService {
   public static async getFavoritesRecipes(idUser: string, type?: string) {
-    const recipes = await RecipesFavoritesModel.findAll({
+    return RecipesFavoritesModel.findAll({
       where: {
         idUser: +idUser,
         ...(type && { type }),
       },
     });
-    return recipes;
   }
 
   public static async addFavoriteRecipe(recipe: RecipeFavorite) {
