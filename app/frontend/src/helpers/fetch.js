@@ -31,6 +31,24 @@ export const requestLogin = async (endpoint, body) => {
   }
 };
 
+export const postData = async (endpoint, body) => {
+  setToken();
+  try {
+    await api.post(endpoint, body);
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const deleteData = async (endpoint) => {
+  setToken();
+  try {
+    await api.delete(endpoint);
+  } catch (e) {
+    console.log(e.response.data);
+  }
+};
+
 export const updateInProgress = async (endpoint, body) => {
   setToken();
   try {
