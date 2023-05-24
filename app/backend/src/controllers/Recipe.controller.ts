@@ -58,7 +58,9 @@ export default class RecipeController {
       type,
     } as RecipeDone;
 
-    await MealRecipeService.finishMealRecipeInProgress(recipe);
+    if (type === 'meal') await MealRecipeService.finishMealRecipeInProgress(recipe);
+    if (type === 'drink') await DrinkRecipeService.finishDrinkRecipeInProgress(recipe);
+
     res.status(200).json({ message: 'ok' });
   }
 
@@ -95,6 +97,7 @@ export default class RecipeController {
       nationality,
       type,
     } as RecipeFavorite;
+
     await RecipesFavovitesService.addFavoriteRecipe(recipe);
     res.status(200).json({ message: 'ok' });
   }
