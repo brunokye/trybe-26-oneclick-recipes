@@ -36,6 +36,7 @@ export default function RecipeInProgress() {
   };
   const newRecipe = newRecipeHelper(meals, drinks, typeOfUrl, magicNum);
   const type = typeOfUrl === 'meals' ? 'meal' : 'drink';
+  const isChecked = useCallback((ingredient) => checked[ingredient], [checked]);
 
   const getInProgress = useCallback(async () => {
     const data = await requestData(`recipes/${typeOfUrl}/in-progress/${id}`);
@@ -71,8 +72,6 @@ export default function RecipeInProgress() {
     setTimeout(() => setCopyLink(false), magicNum.thousand);
   };
 
-  const isChecked = useCallback((ingredient) => checked[ingredient], [checked]);
-
   const handleChecked = useCallback(async (event) => {
     const body = {
       idField: event.target.name,
@@ -86,9 +85,7 @@ export default function RecipeInProgress() {
   const contador = useCallback(() => {
     let count = 0;
     for (let i = 0; i < magicNum.twenty; i += 1) {
-      if (checked[`strIngredient${i}`]) {
-        count += 1;
-      }
+      if (checked[`strIngredient${i}`]) { count += 1; }
     }
     return count;
   }, [checked, magicNum.twenty]);
