@@ -137,10 +137,11 @@ export default function RecipeInProgress() {
     history.push('/done-recipes');
   };
 
-  console.log(meals, drinks);
+  console.log(typeOfUrl, drinks);
+
   return (
     <div>
-      {meals.length === 0 ? null : (
+      {meals.strMeal && (
         <div className="RIPContainer">
           <h2
             data-testid="recipe-title"
@@ -190,7 +191,7 @@ export default function RecipeInProgress() {
           </div>
         </div>
       )}
-      {drinks.length === 0 ? null : (
+      { drinks.idDrink && (
         <div className="RIPContainer">
           <h2
             data-testid="recipe-title"
