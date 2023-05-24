@@ -58,6 +58,7 @@ describe('UserService', () => {
       });
     });
   });
+
   describe('register', () => {
     const email = 'email@email.com';
     const  username = 'user';
@@ -69,7 +70,16 @@ describe('UserService', () => {
       email,
       password,
     };
-    it('deve retronar o token e o nome do usuário', async () => {
+
+    it('deve chamar a função getByEmail', async () => {
+      const findOne = sinon.stub(UserModel, 'findOne');
+      
+      await UserService.getUserByemail('');
+  
+      expect(findOne.calledWith()).to.be.true;
+    });
+
+    it('deve retornar o token e o nome do usuário', async () => {
       sinon.stub(UserService, 'getUserByemail').resolves(null);
       // @ts-ignore
       sinon.stub(UserModel, 'create').resolves(user);
@@ -78,6 +88,7 @@ describe('UserService', () => {
       expect(await UserService.register({email, password, username}))
         .to.be.deep.equal({token: 'token', email});
     });
+
     it('deve retornar um erro caso o email já esteja cadastrado', async () => {
       // @ts-ignore
       sinon.stub(UserService, 'getUserByemail').resolves({email});

@@ -32,6 +32,7 @@ describe('Login Router', () => {
       expect(chaiHttpResponse.status).to.be.equal(200);
       expect(chaiHttpResponse.body).to.be.deep.equal({ token: 'token', email: 'email@email.com' });
     });
+
     it('Deve retornar status 400 com parametros faltando', async () => {
       chaiHttpResponse = await chai.request(app)
         .post('/users/login')
@@ -41,6 +42,7 @@ describe('Login Router', () => {
 
       expect(chaiHttpResponse.status).to.be.equal(400);
     })
+    
     it('Deve retornar status 401 com parametros incorreto', async () => {
       chaiHttpResponse = await chai.request(app)
         .post('/users/login')
