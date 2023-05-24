@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { require } from 'clipboard-copy';
 import Carousel from './Carousel';
-import useLocalStorage from '../hooks/useLocalStorage';
+// import useLocalStorage from '../hooks/useLocalStorage';
 
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import '../styles/recipeDetails.css';
+import { deleteData, postData, requestData } from '../helpers/fetch';
 
 export default function MealDetails({ result }) {
   const [ingredients, setIngredients] = useState([]);
   const [copyLink, setCopyLink] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [favoriteRecipes, setFavoriteRecipes] = useLocalStorage('favoriteRecipes', []);
-  const history = useHistory();
+
   const {
     idMeal,
     strMealThumb,
@@ -36,19 +36,22 @@ export default function MealDetails({ result }) {
     image: strMealThumb,
   };
 
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  const idDone = doneRecipes?.some(({ id }) => id === idMeal);
+  // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  // const idDone = doneRecipes?.some(({ id }) => id === idMeal);
 
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const inProgressMeals = Object.keys(inProgressRecipes?.meals || {});
   const idInProgress = inProgressMeals.includes(idMeal);
 
+  const getFavoriteRecipe = useCallback(async () => {
+    const data = await requestData('/recipes/favorites?type=meal');
+    setFavorite(data.some((recipe) => recipe.idRecipe === newRecipe.id));
+  }, [newRecipe.id]);
+
   useEffect(() => {
     const maxIngredient = 20;
     const ingredientList = [];
-
-    const verifyRecipe = favoriteRecipes.some((recipes) => recipes.id === newRecipe.id);
-    if (verifyRecipe) { setFavorite(true); }
+    getFavoriteRecipe();
 
     if (result) {
       for (let i = 1; i <= maxIngredient; i += 1) {
@@ -62,7 +65,7 @@ export default function MealDetails({ result }) {
     }
 
     setIngredients(ingredientList);
-  }, [favoriteRecipes, newRecipe.id, result]);
+  }, [getFavoriteRecipe, newRecipe.id, result]);
 
   const magicNum = 1000;
 
@@ -74,21 +77,19 @@ export default function MealDetails({ result }) {
     setTimeout(() => setCopyLink(false), magicNum);
   };
 
-  const favoriteRecipe = () => {
+  const favoriteRecipe = async () => {
     if (favorite === false) {
-      setFavoriteRecipes([...favoriteRecipes, newRecipe]);
-      return setFavorite(true);
+      const endPoint = `/recipes/favorites/${newRecipe.id}`;
+      postData(endPoint, newRecipe)
+        .then(() => setFavorite(true))
+        .catch((e) => console(e));
+      return;
     }
-
-    const removeRecipe = favoriteRecipes.filter((recipes) => recipes.id !== newRecipe.id);
-    setFavoriteRecipes([...removeRecipe]);
-    return setFavorite(false);
+    deleteData(`/recipes/favorites/${newRecipe.id}?type=meal`)
+      .then(() => setFavorite(false))
+      .catch((e) => console(e));
   };
 
-  // if (idDone) {
-  //   history.push('/done-receipes');
-  //   return;
-  // }
   if (ingredients.length === 0) { return <div>Loading...</div>; }
   return (
     <div className="recipeContainer">
