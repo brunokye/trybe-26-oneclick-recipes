@@ -1,10 +1,13 @@
 import * as express from 'express';
+import * as swaggerUi from 'swagger-ui-express';
 import 'express-async-errors';
 import mealsRouter from './routes/meals.routes';
 import drinksRouter from './routes/drinks.routes';
 import recipesRouter from './routes/recipes.routes';
 import errorHandler from './middlewares/errorHandler';
 import userRouter from './routes/user.routes';
+
+import * as swaggerJSON from './swagger.json';
 
 class App {
   public app: express.Express;
@@ -24,6 +27,16 @@ class App {
   }
 
   private config():void {
+    this.app.get('/swagger.json', (_req, res) => { res.json(swaggerJSON); });
+    this.app.use(
+      '/docs',
+      swaggerUi.serve,
+      swaggerUi.setup(undefined, {
+        swaggerOptions: {
+          url: '/swagger.json',
+        },
+      }),
+    );
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
