@@ -47,7 +47,7 @@ export default function DrinkDetails({ result }) {
     const ingredientList = [];
 
     const verifyRecipe = favoriteRecipes.some((recipes) => recipes.id === newRecipe.id);
-    if (verifyRecipe) setFavorite(true);
+    if (verifyRecipe) { setFavorite(true); }
 
     if (result) {
       for (let i = 1; i <= maxIngredient; i += 1) {
@@ -61,7 +61,7 @@ export default function DrinkDetails({ result }) {
     }
 
     setIngredients(ingredientList);
-  }, [result]);
+  }, [favoriteRecipes, newRecipe.id, result]);
 
   const copyToClipboard = (id) => {
     const copy = require('clipboard-copy');
@@ -81,12 +81,12 @@ export default function DrinkDetails({ result }) {
     return setFavorite(false);
   };
 
-  if (idDone) {
-    history.push('/done-receipes');
-    return;
-  }
+  // if (idDone) {
+  //   history.push('/done-receipes');
+  //   return;
+  // }
 
-  if (ingredients.length === 0) return <div>Loading...</div>;
+  if (ingredients.length === 0) { return <div>Loading...</div>; }
   return (
     <div className="recipeContainer">
       <h2

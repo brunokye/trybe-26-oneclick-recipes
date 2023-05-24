@@ -13,4 +13,5 @@ export const finishConstructor = (recipe) => ({
   image: recipe.strMealThumb || recipe.strDrinkThumb,
   nationality: recipe.strArea || '',
   tags: recipe.strTags || '',
+  type: recipe.strMeal ? 'meal' : 'drink',
 });

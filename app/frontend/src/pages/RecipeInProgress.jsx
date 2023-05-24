@@ -23,8 +23,8 @@ export default function RecipeInProgress() {
   const path = location.pathname;
   const typeOfUrl = path.split('/')[1];
   const [checked, setChecked] = useState({});
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  const [meals, setMeals] = useState({});
+  const [drinks, setDrinks] = useState({});
   const [isDisabled, setIsDisabled] = useState(true);
   const [copyLink, setCopyLink] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -128,13 +128,16 @@ export default function RecipeInProgress() {
   }, [checkDisabledBtn, checked]);
 
   const handleFinishRecipeBtn = async () => {
-    const recipe = meals || drinks;
+    const recipe = typeOfUrl === 'meals' ? meals : drinks;
+    console.log('recipe', recipe);
     const body = finishConstructor(recipe);
-    const endPoint = `recipes/${typeOfUrl}/in-progress/${id}/finish`;
+    const endPoint = `recipes/in-progress/${id}/finish`;
     await finishInProgress(endPoint, body);
     handleFinishRecipeBtnHelper(meals, drinks, typeOfUrl);
     history.push('/done-recipes');
   };
+
+  console.log(meals, drinks);
   return (
     <div>
       {meals.length === 0 ? null : (
