@@ -15,15 +15,15 @@ export default class MealRecipeService {
       ],
     });
     if (!mealRecipe) {
-      return this.updateMealRecipeInProgress(idUser.toString(), +idMeal, 'strIngredient1', false);
+      return this.updateMealRecipeInProgress(idUser, idMeal, 'strIngredient1', false);
     }
     return mealRecipe;
   }
 
   public static async updateMealRecipeInProgress(
-    idField: string,
     idUser: number,
     idMeal: string,
+    idField: string,
     value: boolean,
   ) {
     return MealRecipeInProgressModel.upsert(
