@@ -3,9 +3,11 @@ import MealController from '../controllers/Meal.controller';
 
 const mealsRouter = Router();
 
-const { findById, findByName, findByFirstLetter, findRandom,
+const {
+  findById, findByName, findByFirstLetter, findRandom,
   findAllCategories, findAllAreas, findAllIngredients,
-  findByIngredient, findByCategory, findByArea } = MealController;
+  findByIngredient, findByCategory, findByArea,
+} = MealController;
 
 mealsRouter
   .get('/name', findByName)
