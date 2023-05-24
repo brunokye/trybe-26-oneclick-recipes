@@ -8,19 +8,14 @@ const { findById, findByName, findByFirstLetter, findRandom,
   findByIngredient, findByCategory, findByArea } = MealController;
 
 mealsRouter
-  // query q=nomes
   .get('/name', findByName)
-  // query q=primeira-letra
   .get('/letter', findByFirstLetter)
   .get('/random', findRandom)
   .get('/categories', findAllCategories)
   .get('/areas', findAllAreas)
   .get('/ingredients', findAllIngredients)
-  // query q=ingredient-name
   .get('/ingredient', findByIngredient)
-  // query q=category-name
   .get('/category', findByCategory)
-  // query q=area-name
   .get('/area', findByArea)
   .get('/:id', findById);
 
