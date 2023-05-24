@@ -1163,9 +1163,6 @@
         "tags": {
           "type": "string",
           "example": "Meat,Pie"
-        },
-        "user": {
-          "$ref": "#/definitions/User"
         }
       }
     },
