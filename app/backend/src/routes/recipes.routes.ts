@@ -22,4 +22,19 @@ recipesRouter.get('/done', [
   RecipeController.getDoneRecipes,
 ]);
 
+recipesRouter.get('/favorites', [
+  authVerify,
+  RecipeController.getFavoritesRecipes,
+]);
+
+recipesRouter.post('/favorites/:idRecipe', [
+  authVerify,
+  RecipeController.addFavoriteRecipe,
+]);
+
+recipesRouter.delete('/favorites/:idRecipe', [
+  authVerify,
+  RecipeController.removeFavoriteRecipe,
+]);
+
 export default recipesRouter;
