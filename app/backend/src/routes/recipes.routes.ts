@@ -12,14 +12,39 @@ recipesRouter.patch('/meals/in-progress/:idMeal', [
   authVerify,
   RecipeController.updateMealRecipeInProgress,
 ]);
-recipesRouter.post('/meals/in-progress/:idMeal/finish', [
+
+recipesRouter.get('/drinks/in-progress/:idDrink', [
   authVerify,
-  RecipeController.finishMealRecipeInProgress,
+  RecipeController.getDrinkRecipeInProgress,
+]);
+recipesRouter.patch('/drinks/in-progress/:idDrink', [
+  authVerify,
+  RecipeController.updateDrinkRecipeInProgress,
+]);
+
+recipesRouter.post('/in-progress/:idRecipe/finish', [
+  authVerify,
+  RecipeController.finishRecipeInProgress,
 ]);
 
 recipesRouter.get('/done', [
   authVerify,
   RecipeController.getDoneRecipes,
+]);
+
+recipesRouter.get('/favorites', [
+  authVerify,
+  RecipeController.getFavoritesRecipes,
+]);
+
+recipesRouter.post('/favorites/:idRecipe', [
+  authVerify,
+  RecipeController.addFavoriteRecipe,
+]);
+
+recipesRouter.delete('/favorites/:idRecipe', [
+  authVerify,
+  RecipeController.removeFavoriteRecipe,
 ]);
 
 export default recipesRouter;
