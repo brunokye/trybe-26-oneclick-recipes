@@ -15,15 +15,15 @@ export default class DrinkRecipeService {
       ],
     });
     if (!drinkRecipe) {
-      return this.updateDrinkRecipeInProgress(idUser.toString(), +idDrink, 'strIngredient1', false);
+      return this.updateDrinkRecipeInProgress(idUser, idDrink, 'strIngredient1', false);
     }
     return drinkRecipe;
   }
 
   public static async updateDrinkRecipeInProgress(
-    idField: string,
     idUser: number,
     idDrink: string,
+    idField: string,
     value: boolean,
   ) {
     return DrinkRecipeInProgressModel.upsert(
