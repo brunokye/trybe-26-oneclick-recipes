@@ -95,7 +95,6 @@ export default class RecipeController {
       nationality,
       type,
     } as RecipeFavorite;
-
     await RecipesFavovitesService.addFavoriteRecipe(recipe);
     res.status(200).json({ message: 'ok' });
   }
