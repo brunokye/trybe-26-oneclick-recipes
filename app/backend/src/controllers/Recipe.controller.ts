@@ -20,7 +20,7 @@ export default class RecipeController {
     const { idField, value } = req.body;
     const { idUser } = req.headers;
 
-    await MealRecipeService.updateMealRecipeInProgress(idField, Number(idUser), idMeal, value);
+    await MealRecipeService.updateMealRecipeInProgress(Number(idUser), idMeal, idField, value);
     res.status(200).json({ message: 'ok' });
   }
 
@@ -37,7 +37,7 @@ export default class RecipeController {
     const { idField, value } = req.body;
     const { idUser } = req.headers;
 
-    await DrinkRecipeService.updateDrinkRecipeInProgress(idField, Number(idUser), idDrink, value);
+    await DrinkRecipeService.updateDrinkRecipeInProgress(Number(idUser), idDrink, idField, value);
     res.status(200).json({ message: 'ok' });
   }
 
@@ -95,7 +95,6 @@ export default class RecipeController {
       nationality,
       type,
     } as RecipeFavorite;
-
     await RecipesFavovitesService.addFavoriteRecipe(recipe);
     res.status(200).json({ message: 'ok' });
   }

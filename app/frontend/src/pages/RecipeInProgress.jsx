@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { require } from 'clipboard-copy';
-import { saveObject } from '../helpers/localStorage';
 import { fetchByType as fetchMealByID } from '../services/mealAPI';
 import { fetchByType as fetchDrinkByID } from '../services/cockTailAPI';
-import useLocalStorage from '../hooks/useLocalStorage';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import {
@@ -13,7 +11,9 @@ import {
   newRecipe as newRecipeHelper,
 } from '../helpers/helpers_recipe_in_progess';
 import '../styles/recipesInProgress.css';
-import { finishInProgress, requestData, updateInProgress } from '../helpers/fetch';
+import {
+  deleteData, finishInProgress, postData,
+  requestData, updateInProgress } from '../helpers/fetch';
 import { finishConstructor } from '../helpers';
 
 export default function RecipeInProgress() {
@@ -28,18 +28,25 @@ export default function RecipeInProgress() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [copyLink, setCopyLink] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [favoriteRecipes, setFavoriteRecipes] = useLocalStorage('favoriteRecipes', []);
   const magicNum = {
     one: -1,
     three: 3,
     thousand: 1000,
     twenty: 20,
   };
+  const newRecipe = newRecipeHelper(meals, drinks, typeOfUrl, magicNum);
+  const type = typeOfUrl === 'meals' ? 'meal' : 'drink';
+  const isChecked = useCallback((ingredient) => checked[ingredient], [checked]);
 
   const getInProgress = useCallback(async () => {
     const data = await requestData(`recipes/${typeOfUrl}/in-progress/${id}`);
     setChecked(data);
   }, [id, typeOfUrl]);
+
+  const getFavoriteRecipe = useCallback(async () => {
+    const data = await requestData(`/recipes/favorites?type=${type}`);
+    setFavorite(data.some((recipe) => recipe.idRecipe === newRecipe.id));
+  }, [newRecipe.id, type]);
 
   useEffect(() => {
     let fetchByID;
@@ -54,14 +61,8 @@ export default function RecipeInProgress() {
     }
     fetchByID();
     getInProgress();
-  }, [getInProgress, id, typeOfUrl]);
-
-  const newRecipe = newRecipeHelper(meals, drinks, typeOfUrl, magicNum);
-
-  useEffect(() => {
-    const verifyRecipe = favoriteRecipes.some((recipes) => recipes.id === newRecipe.id);
-    if (verifyRecipe) { setFavorite(true); }
-  }, [meals, drinks, favoriteRecipes, newRecipe.id]);
+    getFavoriteRecipe();
+  }, [getFavoriteRecipe, getInProgress, id, typeOfUrl]);
 
   const copyToClipboard = (idParam) => {
     const copy = require('clipboard-copy');
@@ -70,8 +71,6 @@ export default function RecipeInProgress() {
     setCopyLink(true);
     setTimeout(() => setCopyLink(false), magicNum.thousand);
   };
-
-  const isChecked = useCallback((ingredient) => checked[ingredient], [checked]);
 
   const handleChecked = useCallback(async (event) => {
     const body = {
@@ -86,9 +85,7 @@ export default function RecipeInProgress() {
   const contador = useCallback(() => {
     let count = 0;
     for (let i = 0; i < magicNum.twenty; i += 1) {
-      if (checked[`strIngredient${i}`]) {
-        count += 1;
-      }
+      if (checked[`strIngredient${i}`]) { count += 1; }
     }
     return count;
   }, [checked, magicNum.twenty]);
@@ -113,19 +110,21 @@ export default function RecipeInProgress() {
     }
   }, [typeOfUrl, meals, isChecked, handleChecked, drinks, contador]);
 
-  const favoriteRecipe = () => {
+  const favoriteRecipe = async () => {
     if (favorite === false) {
-      setFavoriteRecipes([...favoriteRecipes, newRecipe]);
-      return setFavorite(true);
+      const endPoint = `/recipes/favorites/${newRecipe.id}`;
+      postData(endPoint, newRecipe)
+        .then(() => setFavorite(true))
+        .catch((e) => console(e));
+      return;
     }
-    const removeRecipe = favoriteRecipes.filter((recipes) => recipes.id !== newRecipe.id);
-    setFavoriteRecipes([...removeRecipe]);
-    return setFavorite(false);
+    deleteData(`/recipes/favorites/${newRecipe.id}?type=${type}`)
+      .then(() => setFavorite(false))
+      .catch((e) => console(e));
   };
   useEffect(() => {
-    saveObject('inProgressRecipes', checked);
     checkDisabledBtn();
-  }, [checkDisabledBtn, checked]);
+  }, [checkDisabledBtn]);
 
   const handleFinishRecipeBtn = async () => {
     const recipe = typeOfUrl === 'meals' ? meals : drinks;
@@ -137,10 +136,11 @@ export default function RecipeInProgress() {
     history.push('/done-recipes');
   };
 
-  console.log(meals, drinks);
+  console.log(typeOfUrl, drinks);
+
   return (
     <div>
-      {meals.length === 0 ? null : (
+      {meals.strMeal && (
         <div className="RIPContainer">
           <h2
             data-testid="recipe-title"
@@ -190,7 +190,7 @@ export default function RecipeInProgress() {
           </div>
         </div>
       )}
-      {drinks.length === 0 ? null : (
+      { drinks.idDrink && (
         <div className="RIPContainer">
           <h2
             data-testid="recipe-title"
