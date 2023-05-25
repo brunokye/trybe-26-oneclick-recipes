@@ -206,6 +206,16 @@ export const finishDrink = {
   "type": "",
 }
 
+export const bodyFinishDrink = {
+  "category": "",
+  "alcoholicOrNot": "",
+  "name": "",
+  "image": "",
+  "nationality": "",
+  "tags": "",
+  "type": "drink",
+}
+
 export const finishMeal = {
   "idUser": 1,
   "idRecipe": "52978",
@@ -217,6 +227,16 @@ export const finishMeal = {
   "nationality": "",
   "tags": "",
   "type": "",
+}
+
+export const bodyFinishMeal = {
+  "category": "",
+  "alcoholicOrNot": "",
+  "name": "",
+  "image": "",
+  "nationality": "",
+  "tags": "",
+  "type": "meal",
 }
 
 export const doneRecipe = [
