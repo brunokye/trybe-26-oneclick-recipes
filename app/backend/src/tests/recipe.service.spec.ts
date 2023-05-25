@@ -18,7 +18,7 @@ import RecipesFavoritesService from '../services/RecipesFavorite.service';
 import {
   getDrinkStarted, getMealStarted,
   updateDrink, updateMeal,
-  finishDrink, finishMeal, doneRecipe, 
+  finishDrink, finishMeal, doneRecipe,
   createFavoriteRecipe, removeFavoriteRecipe, getAllFavorites,
 } from './mocks/recipe.mock';
 
@@ -108,6 +108,8 @@ describe('RecipeService', () => {
     it('retorna a confirmação da finalização do drink em progresso', async () => {
       // @ts-ignore
       sinon.stub(DrinkRecipeInProgress, 'update').resolves([1]);
+      // @ts-ignore
+      sinon.stub(RecipesDoneModel, 'upsert');
 
       // @ts-ignore
       const result = await DrinkRecipe.finishDrinkRecipeInProgress(finishDrink);
@@ -118,6 +120,8 @@ describe('RecipeService', () => {
     it('retorna a confirmação da finalização da meal em progresso', async () => {
       // @ts-ignore
       sinon.stub(MealRecipeInProgress, 'update').resolves([1]);
+      // @ts-ignore
+      sinon.stub(RecipesDoneModel, 'upsert');
 
       // @ts-ignore
       const result = await MealRecipe.finishMealRecipeInProgress(finishMeal);
@@ -128,10 +132,10 @@ describe('RecipeService', () => {
     it('retorna as receitas finalizadas', async () => {
       // @ts-ignore
       sinon.stub(RecipesDoneModel, 'findAll').resolves(doneRecipe);
-  
+
       // @ts-ignore
       const result = await RecipesDoneService.getFinishedRecipes(1, '');
-  
+
       expect(result).to.be.deep.equal(doneRecipe)
     })
   })
