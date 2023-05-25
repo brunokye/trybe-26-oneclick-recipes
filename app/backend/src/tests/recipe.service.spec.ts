@@ -15,13 +15,14 @@ import MealRecipe from '../services/MealRecipe.service';
 import RecipesDoneService from '../services/RecipesDone.service';
 import RecipesFavoritesService from '../services/RecipesFavorite.service';
 
-import 'mocha';
 import {
   getDrinkStarted, getMealStarted,
   updateDrink, updateMeal,
   finishDrink, finishMeal, doneRecipe, 
   createFavoriteRecipe, removeFavoriteRecipe, getAllFavorites,
 } from './mocks/recipe.mock';
+
+import 'mocha';
 
 chai.use(chaiAsPromised);
 
