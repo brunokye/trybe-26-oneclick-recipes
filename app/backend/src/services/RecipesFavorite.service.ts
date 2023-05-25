@@ -1,7 +1,7 @@
 import RecipesFavoritesModel from '../database/models/RecipesFavorites.model';
 import { RecipeFavorite } from '../dtos/recipe/recipeFavorite.dto';
 
-export default class RecipesFavovitesService {
+export default class RecipesFavoritesService {
   public static async getFavoritesRecipes(idUser: string, type?: string) {
     return RecipesFavoritesModel.findAll({
       where: {

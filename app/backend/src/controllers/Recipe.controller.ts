@@ -4,7 +4,7 @@ import DrinkRecipeService from '../services/DrinkRecipe.service';
 import { RecipeFavorite } from '../dtos/recipe/recipeFavorite.dto';
 import { RecipeDone } from '../dtos/recipe/recipeDone.dto';
 import RecipesDoneService from '../services/RecipesDone.service';
-import RecipesFavovitesService from '../services/RecipesFavorite.service';
+import RecipesFavoritesService from '../services/RecipesFavorite.service';
 
 export default class RecipeController {
   public static async getMealRecipeInProgress(req: Request, res: Response) {
@@ -77,7 +77,7 @@ export default class RecipeController {
     const { idUser } = req.headers;
     const { type } = req.query;
 
-    const recipesFavorites = await RecipesFavovitesService
+    const recipesFavorites = await RecipesFavoritesService
       .getFavoritesRecipes(idUser as string, type as string);
     res.status(200).json(recipesFavorites);
   }
@@ -98,7 +98,7 @@ export default class RecipeController {
       type,
     } as RecipeFavorite;
 
-    await RecipesFavovitesService.addFavoriteRecipe(recipe);
+    await RecipesFavoritesService.addFavoriteRecipe(recipe);
     res.status(200).json({ message: 'ok' });
   }
 
@@ -107,7 +107,7 @@ export default class RecipeController {
     const { idRecipe } = req.params;
     const { type } = req.query;
 
-    await RecipesFavovitesService.removeFavoriteRecipe(idUser as string, idRecipe, type as string);
+    await RecipesFavoritesService.removeFavoriteRecipe(idUser as string, idRecipe, type as string);
     res.status(200).json({ message: 'ok' });
   }
 }
