@@ -60,7 +60,7 @@ export default function Registro() {
         </label>
         <label htmlFor="email">
           <input
-            placeholder="e-mail"
+            placeholder="E-mail"
             type="email"
             id="email"
             data-testid="email-input"

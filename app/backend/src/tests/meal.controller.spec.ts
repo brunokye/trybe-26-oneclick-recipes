@@ -11,10 +11,12 @@ import MealService from '../services/Meal.service';
 import MealCategoryService from '../services/MealCategory.service';
 import MealIngredientService from '../services/MealIngredient.service';
 
-import { findById, findByName, findByFirstLetter, 
+import { 
+  findById, findByName, findByFirstLetter, 
   findByArea, findByCategory, findByIngredient, 
   findRandom, findAllAreas, findAllCategories, 
-  findAllIngredients } from './mocks/meal.mock';
+  findAllIngredients 
+} from './mocks/meal.mock';
   
 import 'mocha';
 

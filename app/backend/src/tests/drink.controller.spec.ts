@@ -11,9 +11,11 @@ import DrinkService from '../services/Drink.service';
 import DrinkCategoryService from '../services/DrinkCategory.service';
 import DrinkIngredientService from '../services/DrinkIngredient.service';
 
-import { findById, findByName, findByFirstLetter, 
+import { 
+  findById, findByName, findByFirstLetter, 
   findByCategory, findByIngredient, findRandom,
-  findAllCategories, findAllIngredients } from './mocks/drink.mock';
+  findAllCategories, findAllIngredients 
+} from './mocks/drink.mock';
 
 import 'mocha';
 

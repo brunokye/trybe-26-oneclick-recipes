@@ -44,7 +44,7 @@ export default function Login() {
         <h6>Login</h6>
         <label htmlFor="email">
           <input
-            placeholder="e-mail"
+            placeholder="E-mail"
             type="email"
             id="email"
             data-testid="email-input"
