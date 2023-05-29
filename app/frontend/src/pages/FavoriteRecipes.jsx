@@ -5,18 +5,24 @@ import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/favoriteRecipes.css';
+import { requestData } from '../helpers/fetch';
 
 export default function FavoriteRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [copy, setCopy] = useState(false);
 
-  const getRecipesLocalStore = () => {
-    const doneRecipesLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setDoneRecipes(doneRecipesLS);
+  // const getRecipesLocalStore = () => {
+  //   const doneRecipesLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   setDoneRecipes(doneRecipesLS);
+  // };
+
+  const getFavorites = async () => {
+    const data = await requestData('/recipes/favorites');
+    setDoneRecipes(data);
   };
 
   useEffect(() => {
-    getRecipesLocalStore();
+    getFavorites();
   }, []);
 
   const handleClickFavorite = (id) => {
