@@ -62,7 +62,7 @@ export default function Login() {
             value={ password }
           />
         </label>
-        <h8>{fetchError && fetchMessage}</h8>
+        <span>{fetchError && fetchMessage}</span>
         <button
           type="button"
           data-testid="login-submit-btn"
