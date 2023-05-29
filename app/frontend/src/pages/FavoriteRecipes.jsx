@@ -8,16 +8,13 @@ import '../styles/favoriteRecipes.css';
 import { deleteData, requestData } from '../helpers/fetch';
 
 export default function FavoriteRecipes() {
+  const [recipes, setRecipes] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [copy, setCopy] = useState(false);
 
-  // const getRecipesLocalStore = () => {
-  //   const doneRecipesLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   setDoneRecipes(doneRecipesLS);
-  // };
-
   const getFavorites = async () => {
     const data = await requestData('/recipes/favorites');
+    setRecipes(data);
     setDoneRecipes(data);
   };
 
@@ -28,12 +25,6 @@ export default function FavoriteRecipes() {
   const handleClickFavorite = (id, type) => {
     deleteData(`/recipes/favorites/${id}?type=${type}`)
       .then(() => getFavorites());
-    // const unFavRecipes = doneRecipes.filter((reciepe) => reciepe.id !== id);
-    // localStorage.setItem('favoriteRecipes', JSON.stringify(unFavRecipes));
-
-    // getRecipesLocalStore();
-
-    // setDoneRecipes(unFavRecipes);
   };
 
   const magicNum = 1000;
@@ -45,22 +36,19 @@ export default function FavoriteRecipes() {
   };
 
   const handleClickAll = () => {
-    getRecipesLocalStore();
+    getFavorites();
   };
 
   const handleClickMeal = () => {
-    const favMeal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const newFavMeal = favMeal.filter((recipe) => recipe.type === 'meal');
-    setDoneRecipes(newFavMeal);
-  };
-
-  const handleClickDrink = () => {
-    const favDrink = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const newFavDrink = favDrink.filter((recipe) => recipe.type === 'drink');
+    const newFavDrink = recipes.filter((recipe) => recipe.type === 'meal');
     setDoneRecipes(newFavDrink);
   };
 
-  console.log(doneRecipes);
+  const handleClickDrink = async () => {
+    const newFavDrink = recipes.filter((recipe) => recipe.type === 'drink');
+    setDoneRecipes(newFavDrink);
+  };
+
   return (
     <div>
       <Header title="Favorite Recipes" />
