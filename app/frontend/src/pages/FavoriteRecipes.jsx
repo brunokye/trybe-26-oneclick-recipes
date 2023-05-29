@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/favoriteRecipes.css';
-import { requestData } from '../helpers/fetch';
+import { deleteData, requestData } from '../helpers/fetch';
 
 export default function FavoriteRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -25,13 +25,15 @@ export default function FavoriteRecipes() {
     getFavorites();
   }, []);
 
-  const handleClickFavorite = (id) => {
-    const unFavRecipes = doneRecipes.filter((reciepe) => reciepe.id !== id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(unFavRecipes));
+  const handleClickFavorite = (id, type) => {
+    deleteData(`/recipes/favorites/${id}?type=${type}`)
+      .then(() => getFavorites());
+    // const unFavRecipes = doneRecipes.filter((reciepe) => reciepe.id !== id);
+    // localStorage.setItem('favoriteRecipes', JSON.stringify(unFavRecipes));
 
-    getRecipesLocalStore();
+    // getRecipesLocalStore();
 
-    setDoneRecipes(unFavRecipes);
+    // setDoneRecipes(unFavRecipes);
   };
 
   const magicNum = 1000;
@@ -58,6 +60,7 @@ export default function FavoriteRecipes() {
     setDoneRecipes(newFavDrink);
   };
 
+  console.log(doneRecipes);
   return (
     <div>
       <Header title="Favorite Recipes" />
@@ -93,7 +96,7 @@ export default function FavoriteRecipes() {
           doneRecipes
         && doneRecipes.map((reciepe, i) => (
           <div key={ i } className="cardContainerFav">
-            <Link to={ `${reciepe.type}s/${reciepe.id}` }>
+            <Link to={ `${reciepe.type}s/${reciepe.idRecipe}` }>
               <img
                 className="cardImgFav"
                 style={ { width: '150px' } }
@@ -142,7 +145,7 @@ export default function FavoriteRecipes() {
 
               <button
                 type="button"
-                onClick={ () => handleClickFavorite(reciepe.id) }
+                onClick={ () => handleClickFavorite(reciepe.idRecipe, reciepe.type) }
               >
                 <img
                   src={ blackHeartIcon }
