@@ -5,27 +5,26 @@ import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/favoriteRecipes.css';
+import { deleteData, requestData } from '../helpers/fetch';
 
 export default function FavoriteRecipes() {
+  const [recipes, setRecipes] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [copy, setCopy] = useState(false);
 
-  const getRecipesLocalStore = () => {
-    const doneRecipesLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setDoneRecipes(doneRecipesLS);
+  const getFavorites = async () => {
+    const data = await requestData('/recipes/favorites');
+    setRecipes(data);
+    setDoneRecipes(data);
   };
 
   useEffect(() => {
-    getRecipesLocalStore();
+    getFavorites();
   }, []);
 
-  const handleClickFavorite = (id) => {
-    const unFavRecipes = doneRecipes.filter((reciepe) => reciepe.id !== id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(unFavRecipes));
-
-    getRecipesLocalStore();
-
-    setDoneRecipes(unFavRecipes);
+  const handleClickFavorite = (id, type) => {
+    deleteData(`/recipes/favorites/${id}?type=${type}`)
+      .then(() => getFavorites());
   };
 
   const magicNum = 1000;
@@ -37,18 +36,16 @@ export default function FavoriteRecipes() {
   };
 
   const handleClickAll = () => {
-    getRecipesLocalStore();
+    getFavorites();
   };
 
   const handleClickMeal = () => {
-    const favMeal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const newFavMeal = favMeal.filter((recipe) => recipe.type === 'meal');
-    setDoneRecipes(newFavMeal);
+    const newFavDrink = recipes.filter((recipe) => recipe.type === 'meal');
+    setDoneRecipes(newFavDrink);
   };
 
-  const handleClickDrink = () => {
-    const favDrink = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const newFavDrink = favDrink.filter((recipe) => recipe.type === 'drink');
+  const handleClickDrink = async () => {
+    const newFavDrink = recipes.filter((recipe) => recipe.type === 'drink');
     setDoneRecipes(newFavDrink);
   };
 
@@ -87,7 +84,7 @@ export default function FavoriteRecipes() {
           doneRecipes
         && doneRecipes.map((reciepe, i) => (
           <div key={ i } className="cardContainerFav">
-            <Link to={ `${reciepe.type}s/${reciepe.id}` }>
+            <Link to={ `${reciepe.type}s/${reciepe.idRecipe}` }>
               <img
                 className="cardImgFav"
                 style={ { width: '150px' } }
@@ -136,7 +133,7 @@ export default function FavoriteRecipes() {
 
               <button
                 type="button"
-                onClick={ () => handleClickFavorite(reciepe.id) }
+                onClick={ () => handleClickFavorite(reciepe.idRecipe, reciepe.type) }
               >
                 <img
                   src={ blackHeartIcon }
