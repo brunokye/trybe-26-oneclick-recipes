@@ -25,19 +25,13 @@ Essas melhorias resultaram em um sistema mais independente, com melhor desempenh
 Clone o repositório
 
 ```bash
-  git clone git@github.com:tryber/sd-026-a-project-recipes-app-full-stack.git
+  git clone git@github.com:tryber/trybe-26-oneclick-recipes.git
 ```
 
 Entre no diretório
 
 ```bash
-  cd sd-026-a-project-recipes-app-full-stack/
-```
-
-Troque de branch
-
-```bash
-  git checkout oneclick_recipes
+  cd trybe-26-oneclick-recipes/
 ```
 
 Inicie os containers
@@ -103,5 +97,6 @@ Após realizar os procedimentos na seção "Executar Localmente", acesse o ender
 ## Autores
 
 - [@andersoncrodrigues](https://github.com/AndersonCRodrigues) - Desenvolvimento e organização do projeto
-- [@brunacfreitas](https://github.com/brunaCFreitas) - Desenvolvimento do projeto
-- [@brunokye](https://github.com/brunokye) - Desenvolvimento do projeto e ajustes em CSS
+- [@brunacfreitas](https://github.com/brunaCFreitas) - Desenvolvimento do projeto e documentação da API
+- [@brunokye](https://github.com/brunokye) - Desenvolvimento do projeto, ajustes em CSS e README
+- [@vinicius-vasconcelos](https://github.com/vinicius-vasconcelos) - Commit inicial (Trybe)
