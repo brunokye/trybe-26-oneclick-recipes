@@ -1,5 +1,7 @@
 # oneClick Recipes
 
+Esse projeto é uma adaptação Full Stack do [Recipes App](https://github.com/brunokye/trybe-16-recipes-app).
+
 No processo de aprimoramento do nosso sistema, criamos um backend personalizado para substituir a API de terceiros previamente utilizada. Essa decisão foi tomada para ter maior controle sobre os recursos e funcionalidades disponíveis, além de reduzir a dependência externa. 
 
 Implementamos recursos robustos de criação e login de usuários, oferecendo aos usuários uma experiência aprimorada e segura. Realizamos a refatoração das operações de armazenamento local do frontend, migrando-as para o backend, o que proporciona maior segurança e escalabilidade ao sistema. 
